@@ -6,6 +6,12 @@
 
 
 {% block content %}
+<style type="text/css">
+.in-error{
+  text-align: left !important;
+  color: #ff3547!important
+}
+</style>
 <!-- Forms -->
 <form action="" method="POST" action="">
   {% csrf_token %}
@@ -29,8 +35,9 @@
           <p class="mb-0 mt-2 h2">Equipe</p>
         </div>
 
-        <!-- Card content -->
+      
         <div class="card-body card-body-cascade text-center">
+            <!-- Card content 
           {% if messages %} {% for message in messages %}
           <div
             class="alert alert-{{message.tags}} alert-dismissible fade show"
@@ -47,39 +54,38 @@
             </button>
           </div>
           {% endfor %} {% endif %}
+          -->
           <div class="md-form md-outline">
             <input
-              required
               type="text"
               id="nom_equipe"
               name="nom_equipe"
               class="form-control"
             />
             <label for="nom_equipe">Nom de l'équipe</label>
+            <div class="in-error">{{form.nom.errors.0}}</div>
           </div>
 
           <div class="md-form md-outline">
             <input
-              required
               type="password"
               id="password_equipe"
               name="password_equipe"
               class="form-control"
             />
             <label for="password_equipe">Mot de passe</label>
+            <div class="in-error">{{form.password.errors.0}}</div>
           </div>
 
           <div class="md-form md-outline">
             <input
-              required
               name="confirm_password_equipe"
               type="password"
               id="confirm_password_equipe"
               class="form-control"
             />
-            <label for="confirm_password_equipe"
-              >Confirmer le mot de passe</label
-            >
+            <label for="confirm_password_equipe">Confirmer le mot de passe</label>
+            <div class="in-error">{{form.password2.errors.0}}</div>
           </div>
         </div>
         <!-- Card content -->
@@ -112,7 +118,6 @@
           <div class="card-body card-body-cascade text-center">
             <div class="md-form md-outline">
               <input
-                required
                 type="text"
                 id="nomchef"
                 name="nom_user_coep1"
@@ -122,7 +127,6 @@
             </div>
             <div class="md-form md-outline">
               <input
-                required
                 type="text"
                 id="nomcoep1"
                 name="nomcoep1"
@@ -133,7 +137,6 @@
 
             <div class="md-form md-outline">
               <input
-                required
                 type="text"
                 id="prenomcoep1"
                 name="prenomcoep1"
@@ -144,7 +147,6 @@
 
             <div class="md-form md-outline">
               <input
-                required
                 type="email"
                 id="emailcoep1"
                 name="emailcoep1"
@@ -155,7 +157,6 @@
 
             <div class="md-form md-outline">
               <input
-                required
                 type="tel"
                 id="numerocoep1"
                 name="numerocoep1"
@@ -187,7 +188,6 @@
           <div class="card-body card-body-cascade text-center">
             <div class="md-form md-outline">
               <input
-                required
                 type="text"
                 id="nomchef"
                 name="nom_user_chef"
@@ -197,7 +197,6 @@
             </div>
             <div class="md-form md-outline">
               <input
-                required
                 type="text"
                 id="nomchef"
                 name="nomchef"
@@ -208,7 +207,6 @@
 
             <div class="md-form md-outline">
               <input
-                required
                 type="text"
                 id="prenomchef"
                 name="prenomchef"
@@ -219,7 +217,6 @@
 
             <div class="md-form md-outline">
               <input
-                required
                 type="email"
                 id="emailchef"
                 name="emailchef"
@@ -230,7 +227,6 @@
 
             <div class="md-form md-outline">
               <input
-                required
                 type="tel"
                 id="numerochef"
                 name="numerochef"
@@ -262,7 +258,6 @@
           <div class="card-body card-body-cascade text-center">
             <div class="md-form md-outline">
               <input
-                required
                 type="text"
                 id="nomchef"
                 name="nom_user_coep2"
@@ -272,7 +267,6 @@
             </div>
             <div class="md-form md-outline">
               <input
-                required
                 type="text"
                 id="nomcoep2"
                 name="nomcoep2"
@@ -283,7 +277,6 @@
 
             <div class="md-form md-outline">
               <input
-                required
                 type="text"
                 id="prenomcoep2"
                 name="prenomcoep2"
@@ -294,7 +287,6 @@
 
             <div class="md-form md-outline">
               <input
-                required
                 type="email"
                 id="emailcoep2"
                 name="emailcoep2"
@@ -305,7 +297,6 @@
 
             <div class="md-form md-outline">
               <input
-                required
                 type="tel"
                 id="numerocoep2"
                 name="numerocoep2"

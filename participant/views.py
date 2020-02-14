@@ -28,9 +28,16 @@ def connexion(request):
         login = request.POST.get('login')
         password = request.POST.get('password')
 
-        mdp = coder_mdp(password)
+        #mdp = coder_mdp(password)
 
-        user = auth.authenticate(username=login, password=mdp)
+        #user = auth.authenticate(username=login, password=mdp)
+
+        #"""
+        #Correction 
+
+        user = auth.authenticate(username=login, password=password)
+
+        #"""
 
         if user is not None:
             auth.login(request, user)
@@ -46,31 +53,42 @@ def connexion(request):
     return render(request, 'participant/connexion.html')
 
 
+from .forms import RegisterForm
+
 def inscription(request):
     context = {
         'data': request.POST,
         'has_error': False
     }
+
+
+    form = RegisterForm(request.POST or None)
+
+
+    print(request.POST)
+
+    if form.is_valid():
+
+        print('Valide')
+
+    else:
+        print(form.errors)
+
+
+    context['form'] = form
+
+
     if request.method == 'POST':
+
+
+
         # informations sur l'équipe
         nom_equipe = request.POST.get('nom_equipe')
         password_equipe = request.POST.get('password_equipe')
         confirm_password_equipe = request.POST.get('confirm_password_equipe')
 
-        # verification de la taille du mot de passe
-        if len(password_equipe) < 8:
-            messages.add_message(request, messages.ERROR,
-                                 "Le mot de passe de l'équipe doit contenir au moins 8 caractères")
-            context['has_error'] = True
-
-        # verification de la confirmation du mot de passe
-        if password_equipe != confirm_password_equipe:
-            messages.add_message(request, messages.ERROR,
-                                 "Les deux mots de passe ne sont pas identiques")
-            context['has_error'] = True
-
-        password_equipe = coder_mdp(password_equipe)
-        confirm_password_equipe = coder_mdp(confirm_password_equipe)
+        #password_equipe = coder_mdp(password_equipe)
+        #confirm_password_equipe = coder_mdp(confirm_password_equipe)
 
         # information sur le chef f'équipe
         nom_user_chef = request.POST.get('nom_user_chef')
@@ -105,16 +123,24 @@ def inscription(request):
                                  "Le nom utilisateur du coéquipier 1 est déja utilisé")
             context['has_error'] = True
 
-        # verification de l'unicité des noms utilisateur entre les membres de l'équipe
-        if nom_user_chef == nom_user_coep1 or nom_user_chef == nom_user_coep2 or nom_user_coep1 == nom_user_coep2:
-            messages.add_message(request, messages.ERROR,
-                                 "Les noms utilisateurs entre les membres doivent être différents")
-            context['has_error'] = True
-
         # verification de l'unicité du nom utilisateur (coep2)
         if User.objects.filter(username=nom_user_coep2):
             messages.add_message(request, messages.ERROR,
                                  "Le nom utilisateur du coéquipier 2 est déja utilisé")
+            context['has_error'] = True
+
+        """
+        # verification de la taille du mot de passe
+        if len(password_equipe) < 8:
+            messages.add_message(
+                request, messages.ERROR, "Le mot de passe de l'équipe doit contenir au moins 8 caractères")
+            context['has_error'] = True
+        """
+
+        # verification de la confirmation du mot de passe
+        if password_equipe != confirm_password_equipe:
+            messages.add_message(request, messages.ERROR,
+                                 "Les deux mots de passe ne sont pas identiques")
             context['has_error'] = True
 
         # verification de l'unicité du nom de l'équipe
@@ -144,23 +170,46 @@ def inscription(request):
         # verification du numero du chef de l'équipe
         if len(numerochef) != 8:
             messages.add_message(
-                request, messages.ERROR, "Le numéro du chef de l'équipe doit contenir exactement 8 chiffres")
+                request, messages.ERROR, "Le numéro du chef de l'équipe doit contenir exactement 8 chiffre")
             context['has_error'] = True
 
         # verification du numero du coéquipier 1
         if len(numerocoep1) != 8:
             messages.add_message(
-                request, messages.ERROR, "Le numéro du coéquipier 1 doit contenir exactement 8 chiffres")
+                request, messages.ERROR, "Le numéro du coéquipier 1 doit contenir exactement 8 chiffre")
             context['has_error'] = True
 
         # verification du numero du coéquipier 2
         if len(numerocoep2) != 8:
             messages.add_message(
-                request, messages.ERROR, "Le numéro du coéquipier 2 doit contenir exactement 8 chiffres")
+                request, messages.ERROR, "Le numéro du coéquipier 2 doit contenir exactement 8 chiffre")
             context['has_error'] = True
+
+        '''
+        # verification de l'unicité du nom et prenom du chef d'équipe
+        if User.objects.filter(first_name=prenomchef, last_name=nomchef).exists():
+            messages.add_message(request, messages.ERROR,
+                                 "Les nom et prenom du chef de l'équipe sont déja utilisés")
+            context['has_error'] = True
+
+        # verification de l'unicité du nom et prenom du coéquipier 1
+        if User.objects.filter(first_name=prenomcoep1, last_name=nomcoep1).exists():
+            messages.add_message(request, messages.ERROR,
+                                 "Les nom et prenom du coéquipier 1 sont déja utilisés")
+            context['has_error'] = True
+
+        # verification de l'unicité du nom et prenom du coéquipier 2
+        if User.objects.filter(first_name=prenomcoep2, last_name=nomcoep2).exists():
+            messages.add_message(request, messages.ERROR,
+                                 "Les nom et prenom du coéquipier 2 sont déja utilisés")
+            context['has_error'] = True
+        '''
+
 
         if context['has_error']:
             return render(request, 'participant/inscription.html', context)
+
+        """
 
         # enregistrer l'équipe
         equipe = Equipe.objects.create(
@@ -230,7 +279,9 @@ def inscription(request):
 
         context['chef_equipe'] = chef_equipe
 
-        return render(request, 'auth/validate.html', context)
+        """
+
+        #return render(request, 'auth/validate.html', context)
 
     return render(request, 'participant/inscription.html')
 
