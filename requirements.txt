@@ -102,7 +102,7 @@ vili==1.1.0
 virtualenv==16.2.0
 wcwidth==0.1.7
 webencodings==0.5.1
-Werkzeug==0.15.2
+Werkzeug==0.15.3
 whitenoise==3.3.1
 widgetsnbextension==3.4.2
 winshlex==0.0.1
