@@ -1,0 +1,8 @@
+- Masquer l'url vers l'admin
+- Personnaliser la page 404 et 403 et 500
+- Auto-remplossage des formualire non effectu¨¦
+- V¨¦rification du formulaire incompl¨¨te
+- Le formulaire peut être envoyé sans préciser le mot de passe
+- Revoir toute l'insciption
+- Mauvaise gestion du middlaware d'authentification et des session de connexion
+- Mauvaise utilisation du mot de passe dans le fichier de connexion

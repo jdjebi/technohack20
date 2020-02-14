@@ -6,6 +6,12 @@
 
 
 {% block content %}
+<style type="text/css">
+.in-error{
+  text-align: left !important;
+  color: #ff3547!important
+}
+</style>
 <!-- Forms -->
 <form action="" method="POST" action="">
   {% csrf_token %}
@@ -29,8 +35,9 @@
           <p class="mb-0 mt-2 h2">Equipe</p>
         </div>
 
-        <!-- Card content -->
+      
         <div class="card-body card-body-cascade text-center">
+            <!-- Card content 
           {% if messages %} {% for message in messages %}
           <div
             class="alert alert-{{message.tags}} alert-dismissible fade show"
@@ -47,6 +54,7 @@
             </button>
           </div>
           {% endfor %} {% endif %}
+          -->
           <div class="md-form md-outline">
             <input
               type="text"
@@ -55,6 +63,7 @@
               class="form-control"
             />
             <label for="nom_equipe">Nom de l'équipe</label>
+            <div class="in-error">{{form.nom.errors.0}}</div>
           </div>
 
           <div class="md-form md-outline">
@@ -65,6 +74,7 @@
               class="form-control"
             />
             <label for="password_equipe">Mot de passe</label>
+            <div class="in-error">{{form.password.errors.0}}</div>
           </div>
 
           <div class="md-form md-outline">
@@ -74,9 +84,8 @@
               id="confirm_password_equipe"
               class="form-control"
             />
-            <label for="confirm_password_equipe"
-              >Confirmer le mot de passe</label
-            >
+            <label for="confirm_password_equipe">Confirmer le mot de passe</label>
+            <div class="in-error">{{form.password2.errors.0}}</div>
           </div>
         </div>
         <!-- Card content -->

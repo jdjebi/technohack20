@@ -28,9 +28,16 @@ def connexion(request):
         login = request.POST.get('login')
         password = request.POST.get('password')
 
-        mdp = coder_mdp(password)
+        #mdp = coder_mdp(password)
 
-        user = auth.authenticate(username=login, password=mdp)
+        #user = auth.authenticate(username=login, password=mdp)
+
+        #"""
+        #Correction 
+
+        user = auth.authenticate(username=login, password=password)
+
+        #"""
 
         if user is not None:
             auth.login(request, user)
@@ -46,19 +53,42 @@ def connexion(request):
     return render(request, 'participant/connexion.html')
 
 
+from .forms import RegisterForm
+
 def inscription(request):
     context = {
         'data': request.POST,
         'has_error': False
     }
+
+
+    form = RegisterForm(request.POST or None)
+
+
+    print(request.POST)
+
+    if form.is_valid():
+
+        print('Valide')
+
+    else:
+        print(form.errors)
+
+
+    context['form'] = form
+
+
     if request.method == 'POST':
+
+
+
         # informations sur l'équipe
         nom_equipe = request.POST.get('nom_equipe')
         password_equipe = request.POST.get('password_equipe')
         confirm_password_equipe = request.POST.get('confirm_password_equipe')
 
-        password_equipe = coder_mdp(password_equipe)
-        confirm_password_equipe = coder_mdp(confirm_password_equipe)
+        #password_equipe = coder_mdp(password_equipe)
+        #confirm_password_equipe = coder_mdp(confirm_password_equipe)
 
         # information sur le chef f'équipe
         nom_user_chef = request.POST.get('nom_user_chef')
@@ -99,11 +129,13 @@ def inscription(request):
                                  "Le nom utilisateur du coéquipier 2 est déja utilisé")
             context['has_error'] = True
 
+        """
         # verification de la taille du mot de passe
         if len(password_equipe) < 8:
             messages.add_message(
                 request, messages.ERROR, "Le mot de passe de l'équipe doit contenir au moins 8 caractères")
             context['has_error'] = True
+        """
 
         # verification de la confirmation du mot de passe
         if password_equipe != confirm_password_equipe:
@@ -172,8 +204,12 @@ def inscription(request):
                                  "Les nom et prenom du coéquipier 2 sont déja utilisés")
             context['has_error'] = True
         '''
+
+
         if context['has_error']:
             return render(request, 'participant/inscription.html', context)
+
+        """
 
         # enregistrer l'équipe
         equipe = Equipe.objects.create(
@@ -243,7 +279,9 @@ def inscription(request):
 
         context['chef_equipe'] = chef_equipe
 
-        return render(request, 'auth/validate.html', context)
+        """
+
+        #return render(request, 'auth/validate.html', context)
 
     return render(request, 'participant/inscription.html')
 
