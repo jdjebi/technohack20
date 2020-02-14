@@ -1,0 +1,67 @@
+       # enregistrer l'équipe
+        equipe = Equipe.objects.create(
+            nom=nom_equipe, password=password_equipe)
+        equipe.chef = "{} {}".format(nomchef, prenomchef)
+
+        # enregistrer le chef de l'équipe
+        chef_equipe = User.objects.create_user(
+            username=nom_user_chef, email=emailchef)
+        chef_equipe.set_password(password_equipe)
+        chef_equipe.first_name = prenomchef
+        chef_equipe.last_name = nomchef
+        chef_equipe.is_active = False
+
+        # enregistrer le coéquipier 1
+        coep1 = User.objects.create_user(
+            username=nom_user_coep1, email=emailcoep1)
+        coep1.set_password(password_equipe)
+        coep1.first_name = prenomcoep1
+        coep1.last_name = nomcoep1
+        coep1.is_active = False
+
+        # enregistrer le coéquipier 2
+        coep2 = User.objects.create_user(
+            username=nom_user_coep2, email=emailcoep2)
+        coep2.set_password(password_equipe)
+        coep2.first_name = prenomcoep2
+        coep2.last_name = nomcoep2
+        coep2.is_active = False
+
+        # attribution des equipes
+        chef_equipe.save()
+        coep1.save()
+        coep2.save()
+        equipe.save()
+
+        liste_participant = [(chef_equipe, numerochef),
+                             (coep1, numerocoep1), (coep2, numerocoep2)]
+
+        for i, j in liste_participant:
+            participant = Participant.objects.create(
+                user=i, numero=j, equipe=equipe)
+            participant.save()
+
+        current_site = get_current_site(request)
+        email_subject = 'Activer votre Equipe'
+        message = render_to_string('auth/activate.html',
+                                   {
+                                       'user': chef_equipe,
+                                       'domain': current_site.domain,
+                                       'uid': urlsafe_base64_encode(force_bytes(chef_equipe.pk)),
+                                       'token': generate_token.make_token(chef_equipe)
+
+                                   })
+
+        email_message = EmailMessage(
+            email_subject,
+            message,
+            settings.EMAIL_HOST_USER,
+            [emailchef]
+        )
+
+        email_message.send()
+
+        messages.add_message(request, messages.SUCCESS,
+                             "Votre équipe a été créé avec succès")
+
+        context['chef_equipe'] = chef_equipe

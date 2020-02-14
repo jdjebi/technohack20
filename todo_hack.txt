@@ -1,0 +1,6 @@
+- Masquer l'url vers l'admin
+- Personnaliser la page 404 et 403 et 500
+- Mauvaise gestion du middlaware d'authentification et des session de connexion
+
+- Personnaliser d'erreur de validation de compte
+-
