@@ -1,0 +1,65 @@
+{% extends 'base.html' %} 
+{% block title %}
+  Connexion
+{% endblock title %}
+
+{% block content %} {% load static %}
+<style>
+  body {
+    background: url('{% static 'images/bg.png' %}') no-repeat;
+    background-size: cover;
+  }
+</style>
+
+<div>
+  <form
+    method="POST"
+    class="text-center col-md-5 col-sm-8 mx-auto border border-light mt-5 p-5 wow fadeIn"
+    data-wow-delay="0.5s"
+    action="."
+    style="background-color: rgba(255, 255, 255, 0.8);"
+  >
+    {% csrf_token %}
+    <p style="font-size: 60px;"><i class="fas fa-user-tie"></i></p>
+    <p class="h4 mb-4">Connexion organisateur</p>
+
+    <div class="md-form md-outline mx-auto">
+      <input
+        type="text"
+        id="login"
+        name="login"
+        class="form-control bg-white"
+      />
+      <label for="login">Login</label>
+    </div>
+
+    <div class="md-form md-outline mx-auto">
+      <input
+        type="password"
+        id="password"
+        name="password"
+        class="form-control bg-white"
+      />
+      <label for="password">Mot de passe</label>
+    </div>
+    {% if request.GET.next %}
+      <input
+        type="hidden"
+        name="next"
+        value="{{request.GET.next}}"
+      />
+    {% endif %}
+    <div class="d-flex justify-content-around">
+      <div>
+        <!-- Forgot password -->
+        <a href="">Mot de passe oublié?</a>
+      </div>
+    </div>
+    <!-- Sign in button -->
+    <button class="btn btn-black my-4" type="submit">
+      Connexion
+    </button>
+  </form>
+</div>
+
+{% endblock content %}

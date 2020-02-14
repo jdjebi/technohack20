@@ -1,0 +1,27 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+  Resultats
+{% endblock title %}
+
+{% block content %}
+{% load static %}
+<div
+  class="container h2 text-center mx-auto w-100"
+  style="position: relative; top:20%"
+>
+  <div class="col-md wow fadeIn mb-5" data-wow-delay="0.3s">
+    <div>
+      <img
+        src="{% static 'images/icone.png' %}"
+        alt=""
+        width="150"
+        height="auto"
+      />
+    </div>
+  </div>
+  <p class="mt-5">
+    Les resultats de la préselection ne sont pas encore disponibles
+  </p>
+</div>
+{% endblock content %}

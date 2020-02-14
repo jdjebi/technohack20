@@ -1,0 +1,205 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Technovor Hackaton 2020 | Accueil</title>
+    <link rel="icon" type="image/png" href="{% static 'images/icone.png' %}" />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"
+    />
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+    <!-- Material Design Bootstrap -->
+    <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet" />
+    <style type="text/css">
+      html,
+      body,
+      header,
+      .view {
+        height: 100%;
+      }
+    </style>
+  </head>
+
+  <body class="medical-lp">
+    <!--Navigation & Intro-->
+    <header>
+      <!--Navbar-->
+      <nav
+        class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar"
+      >
+        <div class="container">
+          <a class="navbar-brand" href="{% url 'accueil' %}"
+            ><img
+              src="{% static 'images/logoofficiel.png' %}"
+              alt=""
+              width="150"
+              height="auto"
+          /></a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!--Links-->
+            <ul class="navbar-nav mr-auto smooth-scroll">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'accueil' %}"
+                  >Accueil <span class="sr-only">(current)</span></a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'equipes' %}" data-offset="80"
+                  >Equipes</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="{% url 'attente' %}"
+                  data-offset="80"
+                  >Résultats</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'contact' %}" data-offset="80"
+                  >Contactez nous</a
+                >
+              </li>
+            </ul>
+
+            <!--Social Icons-->
+            <ul class="navbar-nav nav-flex-icons">
+              {% if user.is_authenticated %}
+                {% if user.username == 'organisateur' %}
+                  <div class="dropdown">
+                    <a class="dropdown-toggle white-text" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle" style="font-size:37px;"></i> {{user}}</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      
+                      <a class="dropdown-item" href="{% url 'organisateur:deconnexion' %}"
+                        >Deconnexion</a
+                      >
+                    </div>
+                {% else %}
+                  <div class="dropdown">
+                    <a class="dropdown-toggle white-text" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle" style="font-size:37px;"></i> {{user}}</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="{% url 'participant:profile' user %}"
+                        >Profile</a
+                      >
+                      <a class="dropdown-item" href="{% url 'organisateur:deconnexion' %}"
+                        >Deconnexion</a
+                      >
+                    </div>
+                  </div>
+                {% endif %}
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'participant:connexion' %}"
+                  >Connexion</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'participant:inscription' %}"
+                  >Inscription</a
+                >
+              </li>
+
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!--/Navbar-->
+
+      <!--Intro Section-->
+      <section
+        id="home"
+        class="view"
+        style="background-image: url('{% static 'images/header.jpg' %}'); background-repeat: no-repeat; background-size: cover; background-position: center center;"
+      >
+        <div class="mask mt-sm-3">
+          <div class="container h-100 d-flex align-items-center">
+            <div class="row pt-5" style="margin-top: 100px;">
+              <div class="col-md text-center text-md-left">
+                <div class="white-text">
+                  <h1
+                    class="h1-responsive font-weight-bold mt-md-5 mt-0 wow fadeInLeft"
+                    data-wow-delay="0.3s"
+                  >
+                    Technovor Hackaton 2020
+                  </h1>
+                  <hr class="hr-light wow fadeInLeft" data-wow-delay="0.3s" />
+                  <div class="wow fadeInLeft mb-3 h4" data-wow-delay="0.3s">
+                    Etes-vous prêt à relever le plus grand challenge de l'année
+                    ?
+                  </div>
+                  <br />
+                  <a
+                    href="{% url 'participant:connexion' %}"
+                    class="btn warning-color-dark font-weight-bold ml-lg-0 wow fadeInLeft white-text"
+                    data-wow-delay="0.3s"
+                    >Participer</a
+                  >
+                  
+                </div>
+              </div>
+              <div class="col-md wow fadeInLeft" data-wow-delay="0.3s">
+                <div>
+                  <img
+                    src="{% static 'images/icone.png' %}"
+                    alt=""
+                    width="400"
+                    height="auto"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </header>
+    <!--/Navigation & Intro-->
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script
+      type="text/javascript"
+      src="{% static 'js/jquery-3.4.1.min.js' %}"
+    ></script>
+    <!-- Bootstrap tooltips -->
+    <script
+      type="text/javascript"
+      src="{% static 'js/popper.min.js' %}"
+    ></script>
+    <!-- Bootstrap core JavaScript -->
+    <script
+      type="text/javascript"
+      src="{% static 'js/bootstrap.min.js' %}"
+    ></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+
+    <!-- Custom scripts -->
+    <script>
+      // Animation init
+      new WOW().init();
+    </script>
+  </body>
+</html>

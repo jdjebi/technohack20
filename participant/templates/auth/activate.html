@@ -1,0 +1,12 @@
+{% autoescape off %}
+    
+    Salut {{user.username}}
+
+    Votre équipe a été créé avec succès
+
+    Vueillez cliquer sur le lien suivant pour l'activer
+
+    http://{{domain}}{% url 'participant:activate' uidb64=uid token=token %}
+
+
+{% endautoescape %}

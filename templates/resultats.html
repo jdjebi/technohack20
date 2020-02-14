@@ -1,0 +1,54 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+  Resultats
+{% endblock title %}
+{% block content %}
+<div class="container mt-5">
+  <div class="my-5 text-center">
+    <h2>Résultats de présélection</h2>
+  </div>
+  <div class="table-responsive-xl text-nowrap">
+    <table class="table table-bordered table-dark table-hover">
+      <thead>
+        <tr class="text-center">
+          <th>#</th>
+          <th>Equipe</th>
+          <th>Membres</th>
+          <th>Etat</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        {% for equipe in equipes %}
+        <tr>
+          <td>{{forloop.counter}}</td>
+          <td>{{equipe.nom.capitalize}}</td>
+          <td>
+            <ul style="list-style: none;">
+              {% for participant in equipe.participants.all %}
+                  {% if participant|lower == equipe.chef|lower %}
+                    <li class="text-warning">
+                      {{participant.user.last_name.capitalize}}
+                      {{participant.user.first_name.capitalize}}
+                    </li>
+                  {% else %}
+                    <li>
+                      {{participant.user.last_name.capitalize}}
+                      {{participant.user.first_name.capitalize}}
+                    </li>
+                  {% endif %}
+              {% endfor %}
+            </ul>
+          </td>
+          {% if equipe.selectionner %}
+          <td class="bg-success">Selectionée</td>
+          {% else %}
+          <td class="bg-danger">Eliminée</td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock content %}

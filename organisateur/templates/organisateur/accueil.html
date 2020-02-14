@@ -1,0 +1,132 @@
+{% extends "base.html" %} 
+
+{% block title %}
+  Oraganisateur
+{% endblock title %}
+
+{% block content %}
+<div class="mt-5 text-center">
+  <h2>Liste des participants</h2>
+</div>
+<div class="px-5">
+  <div class="mt-5">
+    <div class="w-50 mx-auto">
+      <!--Filtrer les recherches-->
+      <div class="filter mb-5">
+        <div class="card py-5 px-5">
+          <form method="GET">
+            <div class="form-row">
+              <div class="form-group col-12">
+                <div class="input-group">
+                  <input
+                    type="search"
+                    class="form-control py-2 border-right-0 border"
+                    name="participant"
+                    placeholder="Participant"
+                  />
+                  <span class="input-group-append">
+                    <div class="input-group-text bg-transparent">
+                      <i class="fas fa-search"></i>
+                    </div>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-12">
+                <div class="input-group">
+                  <input
+                    type="search"
+                    class="form-control py-2 border-right-0 border"
+                    name="equipe"
+                    placeholder="Equipe"
+                  />
+                  <span class="input-group-append">
+                    <div class="input-group-text bg-transparent">
+                      <i class="fas fa-search"></i>
+                    </div>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md">
+                <label for="annee_academique">Etat de l'équipe</label>
+                <select id="etat" class="form-control" name="etat">
+                  <option selected>Choisir...</option>
+                  <option value="selectionnee">Sélectionnée</option>
+                  <option value="eliminee">Eliminée</option>
+                </select>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              style="border-radius: 4px;"
+              class="btn btn-primary"
+            >
+              Chercher
+            </button>
+            <button
+              type="submit"
+              style="border-radius: 4px;"
+              class="btn btn-danger ml-2"
+            >
+              Tout
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-responsive-xl text-nowrap">
+      <form action="" method="POST">
+        {% csrf_token %}
+        <table class="table table-bordered table-dark table-hover">
+          <thead>
+            <tr class="text-center">
+              <th>#</th>
+              <th>Equipe</th>
+              <th>Membres</th>
+              <th>Etat</th>
+              <th>Selectionner</th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+            {% for equipe in equipes %}
+            <tr>
+              <td>{{forloop.counter}}</td>
+              <td>{{equipe.nom.capitalize}}</td>
+              <td>
+                <ul style="list-style: none;">
+                  {% for participant in equipe.participants.all %}
+                  <li>
+                    {{participant.user.last_name.capitalize}}
+                    {{participant.user.first_name.capitalize}}
+                  </li>
+                  {% endfor %}
+                </ul>
+              </td>
+              {% if equipe.selectionner %}
+              <td class="bg-success">Selectionée</td>
+              {% else %}
+              <td class="bg-danger">Eliminée</td>
+              {% endif %}
+              <td>
+              <select class="browser-default custom-select" name="selectionner_{{forloop.counter}}">
+                <option value="{% if equipe.selectionner %}selectionnee{% else %}selectionnee{% endif %}">{% if equipe.selectionner %}Sélectionnée{% else %}Eliminée{% endif %}</option>
+                <option value="{% if equipe.selectionner %}eliminee{% else %}selectionnee{% endif %}">{% if equipe.selectionner %}Eliminée{% else %}Sélectionnée{% endif %}</option>
+              </select>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">
+          Enregistrer
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}

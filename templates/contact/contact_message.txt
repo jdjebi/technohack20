@@ -1,0 +1,11 @@
+Vous avez reçu un message de votre formulaire de contact, de l'utilisateur:
+
+{{utilisateur}}
+
+Dans lequel il est dit:
+
+{{message}}
+
+Repondre à cette e-mail:
+
+{{email}}

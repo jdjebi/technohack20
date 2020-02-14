@@ -1,0 +1,316 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+  Inscription
+{% endblock title %}
+
+
+{% block content %}
+<!-- Forms -->
+<form action="" method="POST" action="">
+  {% csrf_token %}
+  <div class="h2 mx-auto text-center my-5">
+    Créez votre équipe
+  </div>
+  <!--/Title-->
+  <div class="content">
+    <div
+      class="col-md mt-5 wow fadeIn w-responsive mx-auto"
+      data-wow-delay="0.2s"
+    >
+      <!-- Card -->
+      <div class="card card-cascade narrower">
+        <div
+          class="view view-cascade gradient-card-header mdb-color elegant-color-dark"
+        >
+          <h5 class="mb-0 font-weight-bold">
+            <i class="fas fa-flag" style="font-size: 40px;"></i>
+          </h5>
+          <p class="mb-0 mt-2 h2">Equipe</p>
+        </div>
+
+        <!-- Card content -->
+        <div class="card-body card-body-cascade text-center">
+          {% if messages %} {% for message in messages %}
+          <div
+            class="alert alert-{{message.tags}} alert-dismissible fade show"
+            role="alert"
+          >
+            {{message}}
+            <button
+              type="button"
+              class="close"
+              data-dismiss="alert"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% endfor %} {% endif %}
+          <div class="md-form md-outline">
+            <input
+              type="text"
+              id="nom_equipe"
+              name="nom_equipe"
+              class="form-control"
+            />
+            <label for="nom_equipe">Nom de l'équipe</label>
+          </div>
+
+          <div class="md-form md-outline">
+            <input
+              type="password"
+              id="password_equipe"
+              name="password_equipe"
+              class="form-control"
+            />
+            <label for="password_equipe">Mot de passe</label>
+          </div>
+
+          <div class="md-form md-outline">
+            <input
+              name="confirm_password_equipe"
+              type="password"
+              id="confirm_password_equipe"
+              class="form-control"
+            />
+            <label for="confirm_password_equipe"
+              >Confirmer le mot de passe</label
+            >
+          </div>
+        </div>
+        <!-- Card content -->
+      </div>
+      <!-- Card -->
+    </div>
+    <div class="row container h2 mx-auto justify-content-center my-5">
+      <p class="text-center">
+          Informations des membres de l'équipe
+      </p>
+      
+    </div>
+    <div class="container row w-100 mx-auto">
+      <!-- First column -->
+      <div class="col-md mt-5 wow fadeInLeft" data-wow-delay="0.2s">
+        <!-- Card -->
+        <div class="card card-cascade narrower">
+          <!-- Card image -->
+          <div
+            class="view view-cascade gradient-card-header mdb-color elegant-color-dark"
+          >
+            <h5 class="mb-0 font-weight-bold">
+              <i class="fas fa-chess-knight" style="font-size: 40px;"></i>
+            </h5>
+            <p class="mb-0 mt-2 h2">Coéquiper 1</p>
+          </div>
+          <!-- Card image -->
+
+          <!-- Card content -->
+          <div class="card-body card-body-cascade text-center">
+            <div class="md-form md-outline">
+              <input
+                type="text"
+                id="nomchef"
+                name="nom_user_coep1"
+                class="form-control"
+              />
+              <label for="nom_user_coep1">Nom utilisateur</label>
+            </div>
+            <div class="md-form md-outline">
+              <input
+                type="text"
+                id="nomcoep1"
+                name="nomcoep1"
+                class="form-control"
+              />
+              <label for="nomcoep1">Nom</label>
+            </div>
+
+            <div class="md-form md-outline">
+              <input
+                type="text"
+                id="prenomcoep1"
+                name="prenomcoep1"
+                class="form-control"
+              />
+              <label for="prenomcoep1">Prenom</label>
+            </div>
+
+            <div class="md-form md-outline">
+              <input
+                type="email"
+                id="emailcoep1"
+                name="emailcoep1"
+                class="form-control"
+              />
+              <label for="emailcoep1">Email</label>
+            </div>
+
+            <div class="md-form md-outline">
+              <input
+                type="tel"
+                id="numerocoep1"
+                name="numerocoep1"
+                class="form-control"
+              />
+              <label for="numerocoep1">Numéro de téléphone</label>
+            </div>
+          </div>
+          <!-- Card content -->
+        </div>
+        <!-- Card -->
+      </div>
+      <!-- First column -->
+      <div class="col-md wow fadeInUp" data-wow-delay="0.3s">
+        <!-- Card -->
+        <div class="card card-cascade narrower">
+          <!-- Card image -->
+          <div
+            class="view view-cascade gradient-card-header mdb-color warning-color-dark"
+          >
+            <h5 class="mb-0 font-weight-bold">
+              <i class="fas fa-chess-queen" style="font-size: 40px;"></i>
+            </h5>
+            <p class="mb-0 mt-2 h2">Chef d'équipe</p>
+          </div>
+          <!-- Card image -->
+
+          <!-- Card content -->
+          <div class="card-body card-body-cascade text-center">
+            <div class="md-form md-outline">
+              <input
+                type="text"
+                id="nomchef"
+                name="nom_user_chef"
+                class="form-control"
+              />
+              <label for="nom_user_chef">Nom utilisateur</label>
+            </div>
+            <div class="md-form md-outline">
+              <input
+                type="text"
+                id="nomchef"
+                name="nomchef"
+                class="form-control"
+              />
+              <label for="nomchef">Nom</label>
+            </div>
+
+            <div class="md-form md-outline">
+              <input
+                type="text"
+                id="prenomchef"
+                name="prenomchef"
+                class="form-control"
+              />
+              <label for="prenomchef">Prenom</label>
+            </div>
+
+            <div class="md-form md-outline">
+              <input
+                type="email"
+                id="emailchef"
+                name="emailchef"
+                class="form-control"
+              />
+              <label for="emailchef">Email</label>
+            </div>
+
+            <div class="md-form md-outline">
+              <input
+                type="tel"
+                id="numerochef"
+                name="numerochef"
+                class="form-control"
+              />
+              <label for="numerochef">Numéro de téléphone</label>
+            </div>
+          </div>
+          <!-- Card content -->
+        </div>
+        <!-- Card -->
+      </div>
+      <!-- First column -->
+      <div class="col-md mt-5  wow fadeInRight" data-wow-delay="0.2s">
+        <!-- Card -->
+        <div class="card card-cascade narrower">
+          <!-- Card image -->
+          <div
+            class="view view-cascade gradient-card-header mdb-color elegant-color-dark"
+          >
+            <h5 class="mb-0 font-weight-bold">
+              <i class="fas fa-chess-knight" style="font-size: 40px;"></i>
+            </h5>
+            <p class="mb-0 mt-2 h2">Coéquiper 2</p>
+          </div>
+          <!-- Card image -->
+
+          <!-- Card content -->
+          <div class="card-body card-body-cascade text-center">
+            <div class="md-form md-outline">
+              <input
+                type="text"
+                id="nomchef"
+                name="nom_user_coep2"
+                class="form-control"
+              />
+              <label for="nom_user_coep2">Nom utilisateur</label>
+            </div>
+            <div class="md-form md-outline">
+              <input
+                type="text"
+                id="nomcoep2"
+                name="nomcoep2"
+                class="form-control"
+              />
+              <label for="nomcoep2">Nom</label>
+            </div>
+
+            <div class="md-form md-outline">
+              <input
+                type="text"
+                id="prenomcoep2"
+                name="prenomcoep2"
+                class="form-control"
+              />
+              <label for="prenomcoep2">Prenom</label>
+            </div>
+
+            <div class="md-form md-outline">
+              <input
+                type="email"
+                id="emailcoep2"
+                name="emailcoep2"
+                class="form-control"
+              />
+              <label for="emailcoep2">Email</label>
+            </div>
+
+            <div class="md-form md-outline">
+              <input
+                type="tel"
+                id="numerocoep2"
+                name="numerocoep2"
+                class="form-control"
+              />
+              <label for="numerocoep2">Numéro de téléphone</label>
+            </div>
+          </div>
+          <!-- Card content -->
+        </div>
+        <!-- Card -->
+      </div>
+      <!-- First column -->
+
+      <!-- Grid row -->
+      <div></div>
+      <div class="row justify-content-center mx-auto w-100 my-5">
+        <button type="submit" class="btn w-50 warning-color-dark white-text">
+          Valider
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+<!--/Forms-->
+{% endblock content %}
