@@ -18,6 +18,27 @@
   <div class="h2 mx-auto text-center my-5">
     Créez votre équipe
   </div>
+
+  {% if form.errors %}
+  <div class="content">
+    <div class="col-md mt-5 wow fadeIn w-responsive mx-auto">
+      <div
+        class="alert alert-danger alert-dismissible fade show text-center"
+        role="alert"
+      >
+      <strong>Il semble que le formulaire contient des erreurs.</strong>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+      <span aria-hidden="true">&times;</span>
+      </button>
+      </div>        
+    </div>
+  </div>
+  {% endif %}
   <!--/Title-->
   <div class="content">
     <div
@@ -34,36 +55,18 @@
           </h5>
           <p class="mb-0 mt-2 h2">Equipe</p>
         </div>
-
       
         <div class="card-body card-body-cascade text-center">
-            <!-- Card content 
-          {% if messages %} {% for message in messages %}
-          <div
-            class="alert alert-{{message.tags}} alert-dismissible fade show"
-            role="alert"
-          >
-            {{message}}
-            <button
-              type="button"
-              class="close"
-              data-dismiss="alert"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          {% endfor %} {% endif %}
-          -->
           <div class="md-form md-outline">
             <input
               type="text"
               id="nom_equipe"
               name="nom_equipe"
               class="form-control"
+              value="{{form.nom_equipe.value}}"
             />
             <label for="nom_equipe">Nom de l'équipe</label>
-            <div class="in-error">{{form.nom.errors.0}}</div>
+            <div class="in-error">{{form.nom_equipe.errors}}</div>
           </div>
 
           <div class="md-form md-outline">
@@ -74,7 +77,7 @@
               class="form-control"
             />
             <label for="password_equipe">Mot de passe</label>
-            <div class="in-error">{{form.password.errors.0}}</div>
+            <div class="in-error">{{form.password_equipe.errors}}</div>
           </div>
 
           <div class="md-form md-outline">
@@ -85,13 +88,35 @@
               class="form-control"
             />
             <label for="confirm_password_equipe">Confirmer le mot de passe</label>
-            <div class="in-error">{{form.password2.errors.0}}</div>
+            <div class="in-error">{{form.confirm_password_equipe.errors}}</div>
           </div>
         </div>
         <!-- Card content -->
       </div>
       <!-- Card -->
     </div>
+
+    {% if form.non_field_errors %}
+    <div class="row container mx-auto justify-content-center my-5">
+      <div class="col-md mt-5 wow fadeIn w-responsive mx-auto">
+        <div
+          class="alert alert-danger alert-dismissible fade show text-center"
+          role="alert"
+        >
+        <strong>{{form.non_field_errors.0}}</strong>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>        
+      </div>
+    </div>
+    {% endif %}
+
     <div class="row container h2 mx-auto justify-content-center my-5">
       <p class="text-center">
           Informations des membres de l'équipe
@@ -122,8 +147,10 @@
                 id="nomchef"
                 name="nom_user_coep1"
                 class="form-control"
+                value="{{form.nom_user_coep1.value}}"
               />
               <label for="nom_user_coep1">Nom utilisateur</label>
+              <div class="in-error">{{form.nom_user_coep1.errors}}</div>
             </div>
             <div class="md-form md-outline">
               <input
@@ -131,7 +158,9 @@
                 id="nomcoep1"
                 name="nomcoep1"
                 class="form-control"
+                value="{{form.nomcoep1.value}}"
               />
+              <div class="in-error">{{form.nomcoep1.errors}}</div>
               <label for="nomcoep1">Nom</label>
             </div>
 
@@ -141,8 +170,10 @@
                 id="prenomcoep1"
                 name="prenomcoep1"
                 class="form-control"
+                value="{{form.prenomcoep1.value}}"
               />
               <label for="prenomcoep1">Prenom</label>
+              <div class="in-error">{{form.prenomcoep1.errors}}</div>
             </div>
 
             <div class="md-form md-outline">
@@ -151,8 +182,10 @@
                 id="emailcoep1"
                 name="emailcoep1"
                 class="form-control"
+                value="{{form.emailcoep1.value}}"
               />
               <label for="emailcoep1">Email</label>
+              <div class="in-error">{{form.emailcoep1.errors}}</div>
             </div>
 
             <div class="md-form md-outline">
@@ -161,8 +194,10 @@
                 id="numerocoep1"
                 name="numerocoep1"
                 class="form-control"
+                value="{{form.numerocoep1.value}}"
               />
               <label for="numerocoep1">Numéro de téléphone</label>
+              <div class="in-error">{{form.numerocoep1.errors}}</div>
             </div>
           </div>
           <!-- Card content -->
@@ -192,7 +227,9 @@
                 id="nomchef"
                 name="nom_user_chef"
                 class="form-control"
+                value="{{form.nom_user_chef.value}}"
               />
+              <div class="in-error">{{form.nom_user_chef.errors}}</div>
               <label for="nom_user_chef">Nom utilisateur</label>
             </div>
             <div class="md-form md-outline">
@@ -201,7 +238,9 @@
                 id="nomchef"
                 name="nomchef"
                 class="form-control"
+                value="{{form.nomchef.value}}"
               />
+              <div class="in-error">{{form.nomchef.errors}}</div>
               <label for="nomchef">Nom</label>
             </div>
 
@@ -211,7 +250,9 @@
                 id="prenomchef"
                 name="prenomchef"
                 class="form-control"
+                value="{{form.prenomchef.value}}"
               />
+              <div class="in-error">{{form.prenomchef.errors}}</div>
               <label for="prenomchef">Prenom</label>
             </div>
 
@@ -221,7 +262,9 @@
                 id="emailchef"
                 name="emailchef"
                 class="form-control"
+                 value="{{form.emailchef.value}}"
               />
+              <div class="in-error">{{form.emailchef.errors}}</div>
               <label for="emailchef">Email</label>
             </div>
 
@@ -231,7 +274,9 @@
                 id="numerochef"
                 name="numerochef"
                 class="form-control"
+                 value="{{form.numerochef.value}}"
               />
+              <div class="in-error">{{form.numerochef.errors}}</div>
               <label for="numerochef">Numéro de téléphone</label>
             </div>
           </div>
@@ -262,7 +307,9 @@
                 id="nomchef"
                 name="nom_user_coep2"
                 class="form-control"
+                value="{{form.nom_user_coep2.value}}"
               />
+              <div class="in-error">{{form.nom_user_coep2.errors}}</div>
               <label for="nom_user_coep2">Nom utilisateur</label>
             </div>
             <div class="md-form md-outline">
@@ -271,7 +318,9 @@
                 id="nomcoep2"
                 name="nomcoep2"
                 class="form-control"
+                value="{{form.nomcoep2.value}}"
               />
+              <div class="in-error">{{form.nomcoep2.errors}}</div>
               <label for="nomcoep2">Nom</label>
             </div>
 
@@ -281,7 +330,9 @@
                 id="prenomcoep2"
                 name="prenomcoep2"
                 class="form-control"
+                value="{{form.prenomcoep2.value}}"
               />
+              <div class="in-error">{{form.prenomcoep2.errors}}</div>
               <label for="prenomcoep2">Prenom</label>
             </div>
 
@@ -291,7 +342,9 @@
                 id="emailcoep2"
                 name="emailcoep2"
                 class="form-control"
+                value="{{form.emailcoep2.value}}"
               />
+              <div class="in-error">{{form.emailcoep2.errors}}</div>
               <label for="emailcoep2">Email</label>
             </div>
 
@@ -301,7 +354,9 @@
                 id="numerocoep2"
                 name="numerocoep2"
                 class="form-control"
+                value="{{form.numerocoep2.value}}"
               />
+              <div class="in-error">{{form.numerocoep2.errors}}</div>
               <label for="numerocoep2">Numéro de téléphone</label>
             </div>
           </div>
