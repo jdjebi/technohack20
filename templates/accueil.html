@@ -89,13 +89,24 @@
               {% if user.is_authenticated %}
                 {% if user.username == 'organisateur' %}
                   <div class="dropdown">
-                    <a class="dropdown-toggle white-text" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle" style="font-size:37px;"></i> {{user}}</a>
+                    <a class="dropdown-toggle white-text" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-tie" style="font-size:37px;"></i> {{user}}</a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       
                       <a class="dropdown-item" href="{% url 'organisateur:deconnexion' %}"
                         >Deconnexion</a
                       >
                     </div>
+                  </div>
+                {% elif user.username == 'admin' %}
+                  <div class="dropdown">
+                      <a class="dropdown-toggle white-text" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-cog" style="font-size:37px;"></i> {{user}}</a>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        
+                        <a class="dropdown-item" href="{% url 'organisateur:deconnexion' %}"
+                          >Deconnexion</a
+                        >
+                      </div>
+                  </div>
                 {% else %}
                   <div class="dropdown">
                     <a class="dropdown-toggle white-text" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle" style="font-size:37px;"></i> {{user}}</a>
@@ -152,7 +163,7 @@
                   </div>
                   <br />
                   <a
-                    href="{% url 'participant:connexion' %}"
+                    href="{% url 'participant:inscription' %}"
                     class="btn warning-color-dark font-weight-bold ml-lg-0 wow fadeInLeft white-text"
                     data-wow-delay="0.3s"
                     >Participer</a

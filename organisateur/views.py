@@ -15,8 +15,7 @@ def is_valid_query_parameter(param):
 def accueil(request):
     if request.method == 'GET':
         participants = Participant.objects.all()
-        equipes = Equipe.objects.all().order_by('-date_creation')
-
+        equipes = Equipe.objects.all().order_by('date_creation')
         equipe_query = request.GET.get('equipe')
         participant_query = request.GET.get('participant')
         etat_query = request.GET.get('etat')
@@ -46,21 +45,23 @@ def accueil(request):
         return render(request, 'Organisateur/accueil.html', context)
 
     if request.method == 'POST':
-        equipes = list(equipes)
+        equipes = Equipe.objects.all().order_by('date_creation')
+        equipes = [equipe for equipe in equipes]
         for equipe in equipes:
-            iteration = equipes.index(equipe) + 1
-            valeur_selection = "sectionner_{}".format(iteration)
-            selectionner = request.POST.get(valeur_selection)
-            print(selectionner, valeur_selection)
-
-            if selectionner == 'eliminee':
-                equipe.selectionner = False
-            else:
+            index = equipes.index(equipe)
+            selectionneur = "selectionner_{}".format(index + 1)
+            if request.POST.get(selectionneur) == 'selectionnee':
                 equipe.selectionner = True
+            else:
+                equipe.selectionner = False
             equipe.save()
-        equipes = Equipe.objects.all().order_by('-date_creation')
+
+        equipes = Equipe.objects.all().order_by('date_creation')
         context = {'equipes': equipes}
         return render(request, 'Organisateur/accueil.html', context)
+
+    context = {'equipes': equipes}
+    return render(request, 'Organisateur/accueil.html', context)
 
     context = {'equipes': equipes}
     return render(request, 'Organisateur/accueil.html', context)
