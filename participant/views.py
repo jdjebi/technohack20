@@ -1,22 +1,23 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Equipe, Participant
-from django.contrib import messages
-from django.contrib.auth.models import User
-from django.contrib import auth
-from django.contrib.auth.decorators import login_required
-from validate_email import validate_email
-
-
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.contrib.sites.shortcuts import get_current_site
-from django.template.loader import render_to_string
-from django.utils.encoding import force_text, force_bytes, DjangoUnicodeDecodeError
-from .utils import generate_token
 from django.core.mail import EmailMessage
 from django.core.mail import send_mail
 from django.template.loader import get_template
 from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib import auth
+from django.contrib.auth.decorators import login_required
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.encoding import force_text, force_bytes, DjangoUnicodeDecodeError
+from validate_email import validate_email
+
+from .utils import generate_token
 from .chiffrer_password import coder_mdp
+
+from .models import Equipe, Participant
+from .forms import RegisterForm
 
 
 def connexion(request):
@@ -28,16 +29,9 @@ def connexion(request):
         login = request.POST.get('login')
         password = request.POST.get('password')
 
-        #mdp = coder_mdp(password)
+        mdp = coder_mdp(password)
 
-        #user = auth.authenticate(username=login, password=mdp)
-
-        #"""
-        #Correction 
-
-        user = auth.authenticate(username=login, password=password)
-
-        #"""
+        user = auth.authenticate(username=login, password=mdp)
 
         if user is not None:
             auth.login(request, user)
@@ -52,15 +46,11 @@ def connexion(request):
 
     return render(request, 'participant/connexion.html')
 
-
-from .forms import RegisterForm
-
 def inscription(request):
 
     form = RegisterForm(request.POST or None)
 
     if form.is_valid():
-        print('Valide')
 
         data = form.cleaned_data
 
@@ -103,6 +93,31 @@ def inscription(request):
             participant = Participant.objects.create(user=i, numero=j, equipe=equipe)
             participant.save()
 
+
+        current_site = get_current_site(request)
+        email_subject = 'Activer votre Equipe'
+        message = render_to_string('auth/activate.html',
+                               {
+                                   'user': chef_equipe,
+                                   'domain': current_site.domain,
+                                   'uid': urlsafe_base64_encode(force_bytes(chef_equipe.pk)),
+                                   'token': generate_token.make_token(chef_equipe)
+
+                               })
+
+        email_message = EmailMessage(
+            email_subject,
+            message,
+            settings.EMAIL_HOST_USER,
+            [data['emailchef']]
+        )
+
+        email_message.send()
+
+        return render(request, 'auth/validate.html', {
+                'user':chef_equipe
+            })
+
     return render(request, 'participant/inscription.html',{'form':form})
 
 
@@ -110,7 +125,7 @@ def activate_compte(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
         chef_equipe = User.objects.get(pk=uid)
-    except Exeception as identifier:
+    except Exception as identifier:
         chef_equipe = None
 
     if chef_equipe is not None and generate_token.check_token(chef_equipe, token):
@@ -120,14 +135,15 @@ def activate_compte(request, uidb64, token):
         for participant in participants:
             participant.user.is_active = True
             participant.user.save()
-        messages.add_message(request, messages.SUCCESS,
-                             'Votre équipe a été activée avec succès')
+            
+        messages.add_message(request, messages.SUCCESS,"Le compte de votre équipe a bien été activé.")
+
         return redirect('participant:connexion')
 
     return render(request, 'auth/activate_failed.html')
 
 
-@login_required(login_url="participant:connexion")
+@login_required(login_url="participant/connexion")
 def profile(request, username):
     if request.method != 'GET':
         user = get_object_or_404(User, username=username)

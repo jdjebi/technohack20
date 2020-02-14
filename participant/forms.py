@@ -1,4 +1,6 @@
 from django import forms
+from django.contrib.auth.models import User
+from participant.models import Participant
 
 class RegisterForm(forms.Form):
 
@@ -23,6 +25,61 @@ class RegisterForm(forms.Form):
 	prenomcoep2 			 = forms.CharField(max_length=150,required=True,initial='')
 	emailcoep2  			 = forms.EmailField(required=True,initial='')
 	numerocoep2 			 = forms.CharField(min_length=8,max_length=8,required=True,initial='')
+
+
+	def clean_nom_user_chef(self):
+		username = self.cleaned_data.get('nom_user_chef')
+		if User.objects.filter(username=username):
+			raise forms.ValidationError("Nom d'utilisateur déjà utilisé.")
+		return username
+
+	def clean_nom_user_coep1(self):
+		username = self.cleaned_data.get('nom_user_coep1')
+		if User.objects.filter(username=username):
+			raise forms.ValidationError("Nom d'utilisateur déjà utilisé.")
+		return username
+
+	def clean_nom_user_coep2(self):
+		username = self.cleaned_data.get('nom_user_coep2')
+		if User.objects.filter(username=username):
+			raise forms.ValidationError("Nom d'utilisateur déjà utilisé.")
+		return username
+
+	def clean_emailchef(self):
+		email = self.cleaned_data.get('emailchef')
+		if User.objects.filter(email=email):
+			raise forms.ValidationError("E-mail déjà utilisée.")
+		return email
+
+	def clean_emailcoep1(self):
+		email = self.cleaned_data.get('emailcoep1')
+		if User.objects.filter(email=email):
+			raise forms.ValidationError("E-mail déjà utilisée.")
+		return email
+
+	def clean_emailcoep2(self):
+		email = self.cleaned_data.get('emailcoep2')
+		if User.objects.filter(email=email):
+			raise forms.ValidationError("E-mail déjà utilisée.")
+		return email
+
+	def clean_numerochef(self):
+		numero = self.cleaned_data.get('numerochef')
+		if Participant.objects.filter(numero=numero):
+			raise forms.ValidationError("Numéro déjà utilisé.")
+		return numero
+
+	def clean_numerocoep1(self):
+		numero = self.cleaned_data.get('numerocoep1')
+		if Participant.objects.filter(numero=numero):
+			raise forms.ValidationError("Numéro déjà utilisé.")
+		return numero
+
+	def clean_numerocoep2(self):
+		numero = self.cleaned_data.get('numerocoep2')
+		if Participant.objects.filter(numero=numero):
+			raise forms.ValidationError("Numéro déjà utilisé.")
+		return numero
 
 	def clean_confirm_password_equipe(self):
 		pw = self.cleaned_data.get('password_equipe')
