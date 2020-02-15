@@ -1,11 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from participant.models import Participant
-<<<<<<< HEAD
 from . import listes
-=======
->>>>>>> 3aca01f995a951f80f8bee5f142790daf145093a
-
 class RegisterForm(forms.Form):
 
 	nom_equipe               = forms.CharField(max_length=150,required=True,initial='')
@@ -30,10 +26,8 @@ class RegisterForm(forms.Form):
 	emailcoep2  			 = forms.EmailField(required=True,initial='')
 	numerocoep2 			 = forms.CharField(min_length=8,max_length=8,required=True,initial='')
 
-<<<<<<< HEAD
 	niveau 					 = forms.ChoiceField(choices=listes.niveau,required=True) 
-=======
->>>>>>> 3aca01f995a951f80f8bee5f142790daf145093a
+
 
 	def clean_nom_user_chef(self):
 		username = self.cleaned_data.get('nom_user_chef')
