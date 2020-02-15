@@ -167,7 +167,7 @@
     <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
     <script>
       $(function(){
-        if ($('input').val()) {
+        if ($('input').val() != "") {
           $('label[for]').addClass('active')
         }
       })

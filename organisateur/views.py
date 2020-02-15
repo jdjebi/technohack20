@@ -19,6 +19,10 @@ def accueil(request):
         equipe_query = request.GET.get('equipe')
         participant_query = request.GET.get('participant')
         etat_query = request.GET.get('etat')
+        niveau_equipe = request.GET.get('niveau')
+
+        if is_valid_query_parameter(niveau_equipe) and niveau_equipe != 'Choisir...':
+            equipes = equipes.filter(niveau=niveau_equipe)
 
         if is_valid_query_parameter(equipe_query):
             equipes = equipes.filter(nom__icontains=equipe_query)
@@ -59,9 +63,6 @@ def accueil(request):
         equipes = Equipe.objects.all().order_by('date_creation')
         context = {'equipes': equipes}
         return render(request, 'Organisateur/accueil.html', context)
-
-    context = {'equipes': equipes}
-    return render(request, 'Organisateur/accueil.html', context)
 
     context = {'equipes': equipes}
     return render(request, 'Organisateur/accueil.html', context)
