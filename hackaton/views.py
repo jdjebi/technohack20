@@ -26,12 +26,40 @@ def resultats(request):
     return render(request, 'resultats.html', context)
 
 
-def equipes(request):
-    equipes = Equipe.objects.all().order_by('date_creation')
+def is_valid_query_parameter(param):
+    return param != '' and param is not None
 
-    context = {
-        'equipes': equipes
-    }
+
+def equipes(request):
+    if request.method == 'GET':
+        participants = Participant.objects.all()
+        equipes = Equipe.objects.all().order_by('date_creation')
+        equipe_query = request.GET.get('equipe')
+        participant_query = request.GET.get('participant')
+        niveau_equipe = request.GET.get('niveau')
+
+        if is_valid_query_parameter(niveau_equipe) and niveau_equipe != 'Choisir...':
+            equipes = equipes.filter(niveau=niveau_equipe)
+
+        if is_valid_query_parameter(equipe_query):
+            equipes = equipes.filter(nom__icontains=equipe_query)
+
+        if is_valid_query_parameter(participant_query):
+            participants = participants.filter(
+                user__last_name__icontains=participant_query)
+            print(participants)
+            equipes = [participant.equipe for participant in participants]
+            equipes_unique = []
+            for equipe in equipes:
+                if equipe not in equipes_unique:
+                    equipes_unique.append(equipe)
+            equipes = equipes_unique
+
+        context = {'equipes': equipes}
+
+        return render(request, 'equipes.html', context)
+
+    context = {'equipes': equipes}
     return render(request, 'equipes.html', context)
 
 
@@ -44,11 +72,11 @@ def contact(request):
         nom = request.POST.get('nom')
         email = request.POST.get('email')
         sujet = request.POST.get('sujet')
-        sujet = list_sujets[int(sujet) + 1]
+        sujet = list_sujets[int(sujet)]
         message = request.POST.get('message')
         send_copie = request.POST.get('send_copie')
 
-        sujet_original = 'Thecnovor-Hackaton Formulaire de contact | {}'.format(
+        sujet_original = 'Technovor-Hackaton Formulaire de contact | {}'.format(
             sujet)
 
         sujet_copie = 'Technovor-Hackaton Formulaire de contact (Copie) | {}'.format(

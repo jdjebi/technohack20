@@ -56,6 +56,13 @@ def inscription(request):
         nom_equipe = request.POST.get('nom_equipe')
         password_equipe = request.POST.get('password_equipe')
         confirm_password_equipe = request.POST.get('confirm_password_equipe')
+        niveau_equipe = request.POST.get('niveau')
+
+        # validation du niveau
+        if niveau_equipe == 'Niveau':
+            messages.add_message(request, messages.ERROR,
+                                 "Veuillez selectionner le niveau")
+            context['has_error'] = True
 
         # verification de la taille du mot de passe
         if len(password_equipe) < 8:
@@ -164,7 +171,7 @@ def inscription(request):
 
         # enregistrer l'équipe
         equipe = Equipe.objects.create(
-            nom=nom_equipe, password=password_equipe)
+            nom=nom_equipe, password=password_equipe, niveau=niveau_equipe)
         equipe.chef = "{} {}".format(nomchef, prenomchef)
 
         # enregistrer le chef de l'équipe

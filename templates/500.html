@@ -1,0 +1,30 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Erreur du serveur
+{% endblock title %} {% block content %}
+<div style="height: 86.6%;" class="pt-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5">
+        <p class="h3 my-4 text-warning">
+          Le serveur rencontre quelques difficultés !
+        </p>
+        <p class="h6">
+          Erreur 500. Notre serveur semble actuellement très occupé. Nous
+          devrions être de retour d'ici peu. <br />
+          Merci de votre patience !
+        </p>
+        <p>
+          <a href="{% url 'accueil' %}">retourner à la page d'accueil ></a>
+        </p>
+      </div>
+      <div class="col-md">
+        <img
+          src="{% static 'images/500.jpg' %}"
+          alt=""
+          width="600"
+          height="auto"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
