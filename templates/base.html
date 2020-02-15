@@ -68,7 +68,7 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'attente' %}" data-offset="80"
+              <a class="nav-link" href="{% url 'resultats' %}" data-offset="80"
                 >Résultats</a
               >
             </li>
@@ -165,7 +165,10 @@
       new WOW().init();
     </script>
     <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
-    <script>
+    {% block scripts %}
+    
+    {% endblock scripts %}
+    <script type="text/javascript">
       $(function(){
         if ($('input').val() != "") {
           $('label[for]').addClass('active')

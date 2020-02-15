@@ -70,7 +70,6 @@ def accueil(request):
 
 def connexion(request):
     context = {
-        'data': request.POST,
         'has_error': False
     }
     if request.method == 'POST':

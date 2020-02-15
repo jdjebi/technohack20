@@ -16,14 +16,38 @@ def attente(request):
 
 
 def resultats(request):
-    participants = Participant.objects.all()
-    equipes = Equipe.objects.all().order_by('date_creation')
+    if request.method == 'GET':
+        participants = Participant.objects.all()
+        equipes = Equipe.objects.all().order_by('date_creation')
+        equipe_query = request.GET.get('equipe')
+        participant_query = request.GET.get('participant')
+        niveau_equipe = request.GET.get('niveau')
+        etat_equipe = request.GET.get('etat')
 
-    context = {
-        'participants': participants,
-        'equipes': equipes
-    }
-    return render(request, 'resultats.html', context)
+        if is_valid_query_parameter(niveau_equipe) and niveau_equipe != 'Choisir...':
+            equipes = equipes.filter(niveau=niveau_equipe)
+
+        if is_valid_query_parameter(etat_equipe) and etat_equipe != 'Choisir...':
+            etat_equipe = True if etat_equipe == "selectionnee" else False
+            equipes = equipes.filter(selectionner=etat_equipe)
+
+        if is_valid_query_parameter(equipe_query):
+            equipes = equipes.filter(nom__icontains=equipe_query)
+
+        if is_valid_query_parameter(participant_query):
+            participants = participants.filter(
+                user__last_name__icontains=participant_query)
+            print(participants)
+            equipes = [participant.equipe for participant in participants]
+            equipes_unique = []
+            for equipe in equipes:
+                if equipe not in equipes_unique:
+                    equipes_unique.append(equipe)
+            equipes = equipes_unique
+
+        context = {'equipes': equipes}
+
+        return render(request, 'resultats.html', context)
 
 
 def is_valid_query_parameter(param):
