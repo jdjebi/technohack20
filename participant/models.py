@@ -1,18 +1,20 @@
 from django.db import models
 from django.contrib.auth.models import User
-from . import list
-#from django.utils import timezone
+from . import listes
+from django.utils import timezone
 
 
 class Equipe(models.Model):
     nom = models.CharField(max_length=150)
     password = models.CharField(max_length=2000)
     salle = models.CharField(
-        max_length=20, choices=list.salles, null=True, blank=True, default="")
+        max_length=20, choices=listes.salles, null=True, blank=True, default="")
     selectionner = models.BooleanField(default=True)
     chef = models.CharField(max_length=150)
     date_creation = models.DateTimeField(
         'date de création', auto_now_add=True)
+
+    niveau = models.CharField(max_length=8, choices=listes.niveau)
 
     def __str__(self):
         return self.nom

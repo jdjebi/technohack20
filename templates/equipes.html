@@ -8,6 +8,76 @@ Liste des equipes
   <div class="my-5 text-center">
     <h2>Liste des équipes</h2>
   </div>
+  <div class="col-md-7 mx-auto">
+      <!--Filtrer les recherches-->
+      <div class="filter mb-5">
+        <div class="card py-5 px-5">
+          <form method="GET" action="">
+            <div class="form-row">
+              <div class="form-group col-12">
+                <div class="input-group">
+                  <input
+                    type="search"
+                    class="form-control py-2 border-right-0 border"
+                    name="participant"
+                    placeholder="Participant"
+                  />
+                  <span class="input-group-append">
+                    <div class="input-group-text bg-transparent">
+                      <i class="fas fa-search"></i>
+                    </div>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-12">
+                <div class="input-group">
+                  <input
+                    type="search"
+                    class="form-control py-2 border-right-0 border"
+                    name="equipe"
+                    placeholder="Equipe"
+                  />
+                  <span class="input-group-append">
+                    <div class="input-group-text bg-transparent">
+                      <i class="fas fa-search"></i>
+                    </div>
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md">
+                <label for="niveau">Niveau</label>
+                <select id="niveau" class="form-control" name="niveau">
+                  <option selected>Choisir...</option>
+                  <option value="Niveau 1">Niveau 1</option>
+                  <option value="Niveau 2">Niveau 2</option>
+                  <option value="Niveau 3">Niveau 3</option>
+                </select>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              style="border-radius: 4px;"
+              class="btn btn-primary"
+            >
+              Chercher
+            </button>
+            <button
+              type="submit"
+              style="border-radius: 4px;"
+              class="btn btn-danger ml-2"
+            >
+              Tout
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
   <div class="table-responsive-xl text-nowrap">
     <table class="table table-bordered table-dark table-hover">
       <thead>
@@ -15,6 +85,7 @@ Liste des equipes
           <th>#</th>
           <th>Equipe</th>
           <th>Membres</th>
+          <th>Niveau</th>
         </tr>
       </thead>
       <tbody class="text-center">
@@ -39,6 +110,7 @@ Liste des equipes
                 {% endfor %}
               </ul>
           </td>
+          <td>{{equipe.niveau}}</td>
         </tr>
         {% endfor %}
       </tbody>

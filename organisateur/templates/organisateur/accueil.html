@@ -59,6 +59,17 @@
                 </select>
               </div>
             </div>
+            <div class="form-row">
+              <div class="form-group col-md">
+                <label for="niveau">Niveau</label>
+                <select id="niveau" class="form-control" name="niveau">
+                  <option selected>Choisir...</option>
+                  <option value="Niveau 1">Niveau 1</option>
+                  <option value="Niveau 2">Niveau 2</option>
+                  <option value="Niveau 3">Niveau 3</option>
+                </select>
+              </div>
+            </div>
 
             <button
               type="submit"
@@ -88,6 +99,7 @@
               <th>#</th>
               <th>Equipe</th>
               <th>Membres</th>
+              <th>Niveau</th>
               <th>Etat</th>
               <th>Selectionner</th>
             </tr>
@@ -107,6 +119,7 @@
                   {% endfor %}
                 </ul>
               </td>
+              <td>{{equipe.niveau}}</td>
               {% if equipe.selectionner %}
               <td class="bg-success">Selectionée</td>
               {% else %}
