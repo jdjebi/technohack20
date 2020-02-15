@@ -11,7 +11,6 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text, force_bytes, DjangoUnicodeDecodeError
-from validate_email import validate_email
 
 from .utils import generate_token
 from .chiffrer_password import coder_mdp
