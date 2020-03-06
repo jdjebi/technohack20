@@ -1,60 +1,86 @@
 {% extends 'base.html' %} 
 {% load static %}
 
-{% block title %}
-  Profile
-{% endblock title %}
-
+{% block title %} Profile {% endblock title %}
 
 {% block content %} 
-
- <div>
-    <div class="container my-5" style="position: relative; top: 80px;">
-    <div class="col-md-7 mb-5 mx-auto">
-        <!-- Section: Basic Info -->
-        <section class="card profile-card mb-5 text-center">
-        <div
-            class="avatar z-depth-1-half w-25 rounded-circle mx-auto bg-white"
-            style="margin-top: -60px;"
-        >
-            <img
-            src="{% static 'images/icone.png' %}"
-            width="150"
-            height="auto"
-            alt=""
-            class="img-fluid rounded-circle"
-            />
+<style type="text/css">
+    .theme-logo{
+        color: #000;
+        padding: 20px;
+        font-size: 1.4em;
+        border-radius: 1px;
+        border: 1px solid #000;
+    }
+</style>
+<div class="container">
+    <div class="row mt-5"  style="margin-top: 100px;">
+        <div class="col-lg-12">
+            <div class="d-flex justify-content-around flex-wrap">
+                {% if equipe.niveau == 'Niveau 1' %}
+                <div>
+                    <div class="text-center">
+                        <span class="theme-logo">3D</span>
+                        <div class="mt-5 font-weight-bold text-white">Niveau 1</div>
+                    </div>
+                </div>
+                {% elif equipe.niveau == 'Niveau 2' %}
+                <div>
+                    <div class="text-center">
+                        <span class="theme-logo">Data Science | IOT</span>
+                        <div class="mt-5 font-weight-bold text-white">Niveau 2</div>
+                    </div>
+                </div>
+                {% elif equipe.niveau == 'Niveau 3' %}
+                <div>
+                    <div class="text-center">
+                        <span class="theme-logo">IOT</span>
+                        <div class="mt-5 font-weight-bold text-white">Niveau 3</div>
+                    </div>    
+                </div>
+                {% endif %}
+            </div>  
         </div>
-        <!-- Card content -->
-        <div class="card-body">
-            <!-- Title -->
-            <h4 class="card-title">
-            <strong
-                >{{user.last_name.capitalize}}
-                {{user.first_name.capitalize}}</strong
-            >
-            </h4>
-            <h5>Participant <a href="">Technovor Hackaton 2020</a></h5>
-            <p class="dark-grey-text">ESATIC</p>
-
-            <!-- Social -->
-            <p>
-            Nom d'utilisateur : <span class="text-info">{{user.username}}</span> <br />
-            Nom : <span class="text-info">{{user.last_name.capitalize}}</span> <br />
-            Prénom : <span class="text-info">{{user.first_name.capitalize}}</span> <br />
-            Contact : <span class="text-info">{{user.participant.numero}}</span> <br />
-            Email : <span class="text-info">{{user.email}}</span>
-            </p>
-
-            <!-- Text -->
-            <p class="card-text mt-3">
-            <h4>Nom d'équipe : <sapn class="text-warning">{{user.participant.equipe.nom.upper}}</span></h4> <br>
-            <h4>Etat : {% if user.participant.equipe.selectionner %}<span class="text-success">Sélectionnée</span>{% else %}<span class="text-danger">Eliminée</span>{% endif %} </h4> 
-            </p>
-        </div>
-        </section>
-        <!-- Section: Basic Info -->
-    </div>
     </div>
 </div>
+<h2 class="text-center my-3">{{equipe.nom.upper}}</h2>
+<div class="mb-5">
+    <div class="container-fluid" style="position: relative; top: 80px;">
+        <div class="row">
+            <div class="col-md-4 col-lg-3">
+                <section class="card profile-card mb-5">
+                    <div
+                        class="avatar z-depth-1-half w-25 rounded-circle mx-auto bg-white"
+                        style="margin-top: -60px;"
+                    >
+                        <img
+                        src="{% static 'images/icone.png' %}"
+                        width="150"
+                        height="auto"
+                        alt=""
+                        class="img-fluid rounded-circle"
+                        />
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                           <h4>Equipe {{ equipe.pk }} - {{equipe.niveau}}</h4>
+                        </div>
+                        <hr>
+                        <p class="card-text mt-3">
+                        <h5>Nom d'équipe : <sapn class="text-warning">{{equipe.nom.upper}}</span></h5>
+                        <h5>Chef : <sapn>{{equipe.chef.upper}}</span></h5>
+                        <h5>Etat : {% if user.participant.equipe.selectionner %}<span class="text-success">Sélectionnée</span>{% else %}<span class="text-danger">Eliminée</span>{% endif %} </h5> 
+                        </p>
+                    </div>
+                </section>
+            </div>
+            {% for participant in participants %}
+            <div class="col-sm-12 col-md-4 col-lg-3">
+                {% include 'participant/participant.html' %}
+            </div>  
+            {% endfor %}    
+        </div>
+    </div>
+</div>
+<div class="text-center text-muted m-3">&copy Technovore Hackathon 2020</div>
 {% endblock content %}

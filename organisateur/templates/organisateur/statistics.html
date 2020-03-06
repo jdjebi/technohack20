@@ -1,0 +1,40 @@
+{% extends 'organisateur/base.eat.html' %}
+
+{% block content %}
+
+<div id="menu-btn" class="p-3"><a href="#"><span class="techno-orange"><i class="fa fa-bars"></i></span></a></div>
+<div class="container-fluid">
+    <div class="row">
+        <div id="menu" class="col-sm-12 col-md-12 col-lg-3 c p-4 pt-5 border-right">
+            {% include 'organisateur/nav.eat.html'  %}
+        </div>
+        <div id="stats" class="col-sm-12 Col-md-12 col-lg-9">
+            {% include 'organisateur/stats.eat.html' %}
+        </div>
+    </div>
+</div>
+
+<script>
+
+var host = "https://" + window.location.hostname
+
+function update_stats(){
+    fetch(host + '/api/eat/get/stats/{{ periode_url }}')
+    .then(function(response){
+       return response.json();
+    })
+    .then(function(json){
+        data = json.data
+        if(!data.error){
+            $('#total').text(data.total)
+            $('#conso').text(data.conso)
+            $('#restants').text(data.restants)
+        }else{
+            console.log(data.message)
+        }
+    })
+}
+
+setInterval(update_stats,3000)
+</script>
+{% endblock %}

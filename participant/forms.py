@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from participant.models import Participant
+from participant.models import Participant, Equipe
 from . import listes
 class RegisterForm(forms.Form):
 
@@ -17,17 +17,22 @@ class RegisterForm(forms.Form):
 	nom_user_coep1           = forms.CharField(max_length=150,required=True,initial='')
 	nomcoep1    			 = forms.CharField(max_length=150,required=True,initial='')
 	prenomcoep1 			 = forms.CharField(max_length=150,initial='')
-	emailcoep1  			 = forms.EmailField(required=True,initial='')
-	numerocoep1 			 = forms.CharField(min_length=8,max_length=8,required=True,initial='')
+	#emailcoep1  			 = forms.EmailField(required=False,initial='')
+	#numerocoep1 			 = forms.CharField(min_length=8,max_length=8,required=True,initial='')
 
 	nom_user_coep2           = forms.CharField(max_length=150,required=True,initial='')
 	nomcoep2    			 = forms.CharField(max_length=150,required=True,initial='')
 	prenomcoep2 			 = forms.CharField(max_length=150,required=True,initial='')
-	emailcoep2  			 = forms.EmailField(required=True,initial='')
-	numerocoep2 			 = forms.CharField(min_length=8,max_length=8,required=True,initial='')
+	#emailcoep2  			 = forms.EmailField(required=False,initial='')
+	#numerocoep2 			 = forms.CharField(min_length=8,max_length=8,required=True,initial='')
 
 	niveau 					 = forms.ChoiceField(choices=listes.niveau,required=True) 
 
+	def clean_nom_equipe(self):
+		nom_equipe = self.cleaned_data.get('nom_equipe')
+		if Equipe.objects.filter(nom=nom_equipe):
+			raise forms.ValidationError("Nom d'équipe déjà utilisé.")
+		return nom_equipe
 
 	def clean_nom_user_chef(self):
 		username = self.cleaned_data.get('nom_user_chef')
@@ -92,7 +97,7 @@ class RegisterForm(forms.Form):
 			if pw != cpw:
 				raise forms.ValidationError("Les mots de passes de ne correspondent pas.")
 
-		return cpw
+		return pw
 
 	def clean(self):
 		cleaned_data = super().clean()

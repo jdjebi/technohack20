@@ -1,14 +1,20 @@
 {% extends 'base.html' %}
 {% load static %}
-<!-- Default form contact -->
 {% block title %}
   Contact
 {% endblock title %}
 
 {% block content %}
+<style type="text/css">
+.in-error {
+    text-align: left !important;
+    color: #ff3547!important;
+}
+</style>
 <div class="container mx-auto justify-content-center my-5">
   <div class="card mx-auto" style="margin-top: 50px;">
-    <form class="text-center border border-light p-5" method="POST">
+
+    <form id="contact" class="text-center border border-light p-5" method="POST">
       {% csrf_token %}
       <p style="font-size: 60px;"><i class="fas fa-paper-plane"></i></p>
       <p class="h4 mb-4">Contactez nous</p>
@@ -29,68 +35,76 @@
         </button>
       </div>
       {% endfor %} {% endif %}
-      <!-- Name -->
       <div class="md-form md-outline">
         <input
           id="name"
-          class="form-control form-control"
-          required
+          class="form-control"
           name="nom"
           type="text"
           style="line-height: 30px;"
         />
         <label for="name">Nom</label>
+        <div class="in-error text-danger">{{ form.nom.errors.0 }}</div>
       </div>
-      <!-- Email -->
       <div class="md-form md-outline">
         <input
           id="email"
-          class="form-control form-control"
-          required
+          class="form-control"
           name="email"
           type="email"
           style="line-height: 30px;"
         />
         <label for="email">E-mail</label>
+        <div class="in-error text-danger">{{ form.email.errors.0 }}</div>
       </div>
-      <!-- Subject -->
+      <div class="md-form md-outline">
+        <input
+          id="numero"
+          class="form-control"
+          name="numero"
+          type="text"
+          style="line-height: 30px;"
+        />
+        <label for="numero">Numéro de téléphone (Whatsapp)</label>
+        <div class="in-error text-danger">{{ form.nom.errors.0 }}</div>
+      </div>
       <label>Sujet</label>
       <select class="browser-default custom-select mb-4" required name="sujet">
-        <option value="" disabled>Choose option</option>
-        <option value="0" selected>Retour d'information</option>
+        <option value="0 xxx" selected>Retour d'information</option>
         <option value="1">Rapport de bug</option>
         <option value="2">Demande de fonctionnalité</option>
       </select>
-
-      <!-- Message -->
-      <!--Material textarea-->
+      <div class="in-error text-danger">{{ form.sujet.errors.0 }}</div>
       <div class="md-form md-outline">
         <textarea
           id="form75"
           class="md-textarea form-control"
           rows="5"
-          required
-          name="message"
+          name="contenu"
         ></textarea>
         <label for="form75">Contenu</label>
+        <div class="in-error text-danger">{{ form.contenu.errors.0 }}</div>
       </div>
-      <!-- Copy -->
-      <div class="custom-control custom-checkbox mb-4">
-        <input
-          type="checkbox"
-          class="custom-control-input"
-          id="defaultContactFormCopy"
-          name="send_copie"
-        />
-        <label class="custom-control-label" for="defaultContactFormCopy"
-          >M'envoyer une copie de ce message</label
-        >
-      </div>
-
-      <!-- Send button -->
       <button class="btn btn-info btn-block" type="submit">Envoyer</button>
     </form>
   </div>
-  <!-- Default form contact -->
+</div>
+<hr>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Contacts</h3>      
+    </div>
+  </div>
+  <div class="row p-3">
+    <div class="col-md-6">
+      <div><strong>Téléhpone:</strong></div>
+      <div>+255 89 85 28 56</div>
+    </div>
+    <div class="col-md-6 text-left">
+      <div><strong>E-mail:</strong></div>
+      <div>c2e.teams@gmail.com</div>
+    </div>
+  </div>
 </div>
 {% endblock content %}

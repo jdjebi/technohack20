@@ -1,0 +1,15 @@
+{% extends 'base.html' %} 
+{% load static %}
+
+{% block title %}
+Liste de préselection - {{ niveau }}
+{% endblock title %}
+{% block content %}
+
+
+
+<div class="container">
+	{% include 'organisateur/base_participants_liste_selection.html' %}	
+</div>
+
+{% endblock content %}

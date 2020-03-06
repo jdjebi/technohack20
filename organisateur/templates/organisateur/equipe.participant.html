@@ -1,0 +1,23 @@
+{% load static %}
+
+<section class="card profile-card mb-5 {% if not participant.is_chief %} border{% endif %}">
+    <div class="card-header d-flex justify-content-between">
+        <div>
+        {% if participant.is_chief == True %}
+            Chef d'équipe
+        {% else %}
+            Coéquipier
+        {% endif %}
+        </div>
+        <div><strong class="">Numéro: #{{ participant.pk }}</strong></div>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">
+            {{participant.user.last_name.capitalize}} {{participant.user.first_name.capitalize}}
+        </h5>
+        <div>Nom d'utilisateur : <span class="text-info">{{participant.user.username}}</span></div>
+        <hr>
+        <div>Email : <span class="text-info">{{participant.user.email}}</span></div>
+        <div>Numéro : <span class="text-info">{% if participant.numero %}{{participant.numero}}{% endif %}</span></div>
+    </div>
+</section>

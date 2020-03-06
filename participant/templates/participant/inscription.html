@@ -26,7 +26,7 @@
         class="alert alert-danger alert-dismissible fade show text-center"
         role="alert"
       >
-      <strong>Il semble que le formulaire contient des erreurs.</strong>
+      <strong>Il semble que le formulaire contienne des erreurs.</strong>
       <button
         type="button"
         class="close"
@@ -66,7 +66,7 @@
               value="{{form.nom_equipe.value}}"
             />
             <label for="nom_equipe">Nom de l'équipe</label>
-            <div class="in-error">{{form.nom_equipe.errors}}</div>
+            <div class="in-error">{{form.nom_equipe.errors.0}}</div>
           </div>
           <div class="md-form md-outline">
             <select required class="browser-default custom-select" name="niveau" >
@@ -75,7 +75,7 @@
               <option value="Niveau 2">Licence 2 - Licence 3</option>
               <option value="Niveau 3">Master 1</option>
             </select>
-            <div class="in-error">{{form.niveau.errors}}</div>
+            <div class="in-error">{{form.niveau.errors.0}}</div>
           </div>
 
           <div class="md-form md-outline">
@@ -86,7 +86,7 @@
               class="form-control"
             />
             <label for="password_equipe">Mot de passe</label>
-            <div class="in-error">{{form.password_equipe.errors}}</div>
+            <div class="in-error">{{form.password_equipe.errors.0}}</div>
           </div>
 
           <div class="md-form md-outline">
@@ -97,7 +97,7 @@
               class="form-control"
             />
             <label for="confirm_password_equipe">Confirmer le mot de passe</label>
-            <div class="in-error">{{form.confirm_password_equipe.errors}}</div>
+            <div class="in-error">{{form.confirm_password_equipe.errors.0}}</div>
           </div>
         </div>
         <!-- Card content -->
@@ -153,13 +153,13 @@
             <div class="md-form md-outline">
               <input
                 type="text"
-                id="nomchef"
+                id="nom_user_coep1"
                 name="nom_user_coep1"
                 class="form-control"
                 value="{{form.nom_user_coep1.value}}"
               />
               <label for="nom_user_coep1">Nom utilisateur</label>
-              <div class="in-error">{{form.nom_user_coep1.errors}}</div>
+              <div class="in-error">{{form.nom_user_coep1.errors.0}}</div>
             </div>
             <div class="md-form md-outline">
               <input
@@ -169,7 +169,7 @@
                 class="form-control"
                 value="{{form.nomcoep1.value}}"
               />
-              <div class="in-error">{{form.nomcoep1.errors}}</div>
+              <div class="in-error">{{form.nomcoep1.errors.0}}</div>
               <label for="nomcoep1">Nom</label>
             </div>
 
@@ -182,31 +182,7 @@
                 value="{{form.prenomcoep1.value}}"
               />
               <label for="prenomcoep1">Prenom</label>
-              <div class="in-error">{{form.prenomcoep1.errors}}</div>
-            </div>
-
-            <div class="md-form md-outline">
-              <input
-                type="email"
-                id="emailcoep1"
-                name="emailcoep1"
-                class="form-control"
-                value="{{form.emailcoep1.value}}"
-              />
-              <label for="emailcoep1">Email</label>
-              <div class="in-error">{{form.emailcoep1.errors}}</div>
-            </div>
-
-            <div class="md-form md-outline">
-              <input
-                type="tel"
-                id="numerocoep1"
-                name="numerocoep1"
-                class="form-control"
-                value="{{form.numerocoep1.value}}"
-              />
-              <label for="numerocoep1">Numéro de téléphone</label>
-              <div class="in-error">{{form.numerocoep1.errors}}</div>
+              <div class="in-error">{{form.prenomcoep1.errors.0}}</div>
             </div>
           </div>
           <!-- Card content -->
@@ -233,12 +209,12 @@
             <div class="md-form md-outline">
               <input
                 type="text"
-                id="nomchef"
+                id="nom_user_chef"
                 name="nom_user_chef"
                 class="form-control"
                 value="{{form.nom_user_chef.value}}"
               />
-              <div class="in-error">{{form.nom_user_chef.errors}}</div>
+              <div class="in-error">{{form.nom_user_chef.errors.0}}</div>
               <label for="nom_user_chef">Nom utilisateur</label>
             </div>
             <div class="md-form md-outline">
@@ -249,7 +225,7 @@
                 class="form-control"
                 value="{{form.nomchef.value}}"
               />
-              <div class="in-error">{{form.nomchef.errors}}</div>
+              <div class="in-error">{{form.nomchef.errors.0}}</div>
               <label for="nomchef">Nom</label>
             </div>
 
@@ -261,7 +237,7 @@
                 class="form-control"
                 value="{{form.prenomchef.value}}"
               />
-              <div class="in-error">{{form.prenomchef.errors}}</div>
+              <div class="in-error">{{form.prenomchef.errors.0}}</div>
               <label for="prenomchef">Prenom</label>
             </div>
 
@@ -273,7 +249,7 @@
                 class="form-control"
                  value="{{form.emailchef.value}}"
               />
-              <div class="in-error">{{form.emailchef.errors}}</div>
+              <div class="in-error">{{form.emailchef.errors.0}}</div>
               <label for="emailchef">Email</label>
             </div>
 
@@ -285,7 +261,7 @@
                 class="form-control"
                  value="{{form.numerochef.value}}"
               />
-              <div class="in-error">{{form.numerochef.errors}}</div>
+              <div class="in-error">{{form.numerochef.errors.0}}</div>
               <label for="numerochef">Numéro de téléphone</label>
             </div>
           </div>
@@ -313,12 +289,12 @@
             <div class="md-form md-outline">
               <input
                 type="text"
-                id="nomchef"
+                id="nom_user_coep2"
                 name="nom_user_coep2"
                 class="form-control"
                 value="{{form.nom_user_coep2.value}}"
               />
-              <div class="in-error">{{form.nom_user_coep2.errors}}</div>
+              <div class="in-error">{{form.nom_user_coep2.errors.0}}</div>
               <label for="nom_user_coep2">Nom utilisateur</label>
             </div>
             <div class="md-form md-outline">
@@ -329,7 +305,7 @@
                 class="form-control"
                 value="{{form.nomcoep2.value}}"
               />
-              <div class="in-error">{{form.nomcoep2.errors}}</div>
+              <div class="in-error">{{form.nomcoep2.errors.0}}</div>
               <label for="nomcoep2">Nom</label>
             </div>
 
@@ -341,49 +317,23 @@
                 class="form-control"
                 value="{{form.prenomcoep2.value}}"
               />
-              <div class="in-error">{{form.prenomcoep2.errors}}</div>
+              <div class="in-error">{{form.prenomcoep2.errors.0}}</div>
               <label for="prenomcoep2">Prenom</label>
             </div>
-
-            <div class="md-form md-outline">
-              <input
-                type="email"
-                id="emailcoep2"
-                name="emailcoep2"
-                class="form-control"
-                value="{{form.emailcoep2.value}}"
-              />
-              <div class="in-error">{{form.emailcoep2.errors}}</div>
-              <label for="emailcoep2">Email</label>
-            </div>
-
-            <div class="md-form md-outline">
-              <input
-                type="tel"
-                id="numerocoep2"
-                name="numerocoep2"
-                class="form-control"
-                value="{{form.numerocoep2.value}}"
-              />
-              <div class="in-error">{{form.numerocoep2.errors}}</div>
-              <label for="numerocoep2">Numéro de téléphone</label>
-            </div>
           </div>
-          <!-- Card content -->
         </div>
-        <!-- Card -->
       </div>
-      <!-- First column -->
-
-      <!-- Grid row -->
-      <div></div>
       <div class="row justify-content-center mx-auto w-100 my-5">
         <button type="submit" class="btn w-50 warning-color-dark white-text">
           Valider
         </button>
       </div>
+      <div class="row justify-content-center mx-auto w-100">
+        <a href="{% url 'contact' %}#contact">En cas de problème contactez nous</a>
+      </div>
     </div>
   </div>
 </form>
-<!--/Forms-->
+<hr>
+<div class="text-center text-muted m-3">&copy Technovore Hackathon 2020</div>
 {% endblock content %}

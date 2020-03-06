@@ -1,5 +1,11 @@
 
-salles = []
+salles = [
+    ("RTEL 1","RTEL 1"),
+    ("RTEL 2","RTEL 2"),
+    ("SRIT2 A","SRIT2 A"),
+    ("SRIT2 B","SRIT2 B"),
+    ("SRIT3 A","SRIT3 A"),
+]
 
 etat = [
     ('Sélectionnée', 'Sélectionnée'),

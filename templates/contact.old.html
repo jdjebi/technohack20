@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- Default form contact -->
+{% block title %}
+  Contact
+{% endblock title %}
+
+{% block content %}
+<div class="container mx-auto justify-content-center my-5">
+  <div class="card mx-auto" style="margin-top: 50px;">
+    <form class="text-center border border-light p-5" method="POST">
+      {% csrf_token %}
+      <p style="font-size: 60px;"><i class="fas fa-paper-plane"></i></p>
+      <p class="h4 mb-4">Contactez nous</p>
+
+      {% if messages %} {% for message in messages %}
+      <div
+        class="alert alert-{{message.tags}} alert-dismissible fade show"
+        role="alert"
+      >
+        {{message}}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %} {% endif %}
+      <!-- Name -->
+      <div class="md-form md-outline">
+        <input
+          id="name"
+          class="form-control form-control"
+          required
+          name="nom"
+          type="text"
+          style="line-height: 30px;"
+        />
+        <label for="name">Nom</label>
+      </div>
+      <!-- Email -->
+      <div class="md-form md-outline">
+        <input
+          id="email"
+          class="form-control form-control"
+          required
+          name="email"
+          type="email"
+          style="line-height: 30px;"
+        />
+        <label for="email">E-mail</label>
+      </div>
+      <!-- Subject -->
+      <label>Sujet</label>
+      <select class="browser-default custom-select mb-4" required name="sujet">
+        <option value="" disabled>Choose option</option>
+        <option value="0" selected>Retour d'information</option>
+        <option value="1">Rapport de bug</option>
+        <option value="2">Demande de fonctionnalité</option>
+      </select>
+
+      <!-- Message -->
+      <!--Material textarea-->
+      <div class="md-form md-outline">
+        <textarea
+          id="form75"
+          class="md-textarea form-control"
+          rows="5"
+          required
+          name="message"
+        ></textarea>
+        <label for="form75">Contenu</label>
+      </div>
+      <!-- Copy -->
+      <div class="custom-control custom-checkbox mb-4">
+        <input
+          type="checkbox"
+          class="custom-control-input"
+          id="defaultContactFormCopy"
+          name="send_copie"
+        />
+        <label class="custom-control-label" for="defaultContactFormCopy"
+          >M'envoyer une copie de ce message</label
+        >
+      </div>
+
+      <!-- Send button -->
+      <button class="btn btn-info btn-block" type="submit">Envoyer</button>
+    </form>
+  </div>
+  <!-- Default form contact -->
+</div>
+{% endblock content %}

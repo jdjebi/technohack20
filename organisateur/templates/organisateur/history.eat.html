@@ -1,0 +1,34 @@
+{% extends 'organisateur/base.eat.html' %}
+
+{% block content %}
+
+<div id="menu-btn" class="p-3"><a href="#"><span class="techno-orange"><i class="fa fa-bars"></i></span></a></div>
+<div class="container-fluid">
+    <div class="row">
+        <div id="menu" class="col-sm-12 col-md-12 col-lg-3 c p-4 pt-5 border-right">
+            {% include 'organisateur/nav.eat.html'  %}
+        </div>
+        <div id="stats" class="col-sm-12 Col-md-12 col-lg-9">
+            <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="false">Bilan</a>
+                <a class="nav-item nav-link active" id="nav-edit-tab" data-toggle="tab" href="#nav-edit" role="tab" aria-controls="nav-edit" aria-selected="false">Gestion du tableau de suivi</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="true">Tableau de suivi</a>
+              </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                  <div class="h3">Bilan Général</div>
+              </div>
+              <div class="tab-pane fade show active" id="nav-edit" role="tabpanel" aria-labelledby="nav-edit-tab">
+                  {% include 'organisateur/edit_table_orga.eat.html' %}
+              </div>
+                <div class="tab-pane" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                  {% include 'organisateur/table_orga.eat.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -6,20 +6,24 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib import auth
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text, force_bytes, DjangoUnicodeDecodeError
-
 from .utils import generate_token
 from .chiffrer_password import coder_mdp
-
 from .models import Equipe, Participant
 from .forms import RegisterForm
 
-
 def connexion(request):
+
+    # Pour les resultats
+    #return redirect('accueil')
+
+    if request.user.is_authenticated:
+        return redirect('participant:profile',username=request.user.username)
+
     context = {
         'data': request.POST,
         'has_error': False
@@ -47,6 +51,9 @@ def connexion(request):
 
 def inscription(request):
 
+    if request.user.is_authenticated:
+        return redirect('participant:profile',username=request.user.username)
+
     form = RegisterForm(request.POST or None)
 
     if form.is_valid():
@@ -64,36 +71,37 @@ def inscription(request):
         chef_equipe.set_password(data['password_equipe'])
         chef_equipe.first_name = data['prenomchef']
         chef_equipe.last_name = data['nomchef']
+        chef_equipe.is_active = True
 
-        chef_equipe.is_active = False
 
         # enregistrer le coéquipier 1
-        coep1 = User.objects.create_user(username=data['nom_user_coep1'], email=data['emailcoep1'])
+        coep1 = User.objects.create_user(username=data['nom_user_coep1'], email='')
         coep1.set_password(data['password_equipe'])
         coep1.first_name = data['prenomcoep1']
         coep1.last_name = data['nomcoep1']
-        coep1.is_active = False
+        coep1.is_active = True
 
         # enregistrer le coéquipier 2
-        coep2 = User.objects.create_user(username=data['nom_user_coep2'], email=data['emailcoep2'])
+        coep2 = User.objects.create_user(username=data['nom_user_coep2'], email='')
         coep2.set_password(data['password_equipe'])
         coep2.first_name = data['prenomcoep2']
         coep2.last_name = data['nomcoep2']
-        coep2.is_active = False
-
+        coep2.is_active = True
+    
         # attribution des equipes
         chef_equipe.save()
+
         coep1.save()
         coep2.save()
         equipe.save()
 
-        liste_participant = [(chef_equipe, data['numerochef']), (coep1, data['numerocoep1']), (coep2, data['numerocoep2'])]
+        liste_participant = [(chef_equipe, data['numerochef'],True), (coep1, '',False), (coep2, '',False)]
 
-        for i, j in liste_participant:
-            participant = Participant.objects.create(user=i, numero=j, equipe=equipe)
+        for user, numero, is_chef in liste_participant:
+            participant = Participant.objects.create(user=user, numero=numero, equipe=equipe,is_chief=is_chef)
             participant.save()
 
-
+        """
         current_site = get_current_site(request)
         email_subject = 'Activer votre Equipe'
         message = render_to_string('auth/activate.html',
@@ -104,24 +112,28 @@ def inscription(request):
                                    'token': generate_token.make_token(chef_equipe)
 
                                })
-
         email_message = EmailMessage(
             email_subject,
             message,
             settings.EMAIL_HOST_USER,
             [data['emailchef']]
         )
-
         email_message.send()
+        """
 
-        return render(request, 'auth/validate.html', {
-                'user':chef_equipe
-            })
+        messages.add_message(request, messages.SUCCESS,"Votre équipe a bien été inscrite. Connectez vous pour connaitre vos numéros participant.")
+
+        return redirect('participant:connexion')
+
 
     return render(request, 'participant/inscription.html',{'form':form})
 
 
 def activate_compte(request, uidb64, token):
+
+    if request.user.is_authenticated:
+        return redirect('participant:profile',username=request.user.username)
+
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
         chef_equipe = User.objects.get(pk=uid)
@@ -143,12 +155,18 @@ def activate_compte(request, uidb64, token):
     return render(request, 'auth/activate_failed.html')
 
 
-@login_required(login_url="participant/connexion")
+@login_required(login_url="participant:connexion")
 def profile(request, username):
-    if request.method != 'GET':
-        user = get_object_or_404(User, username=username)
-        context = {
-            "user": user
-        }
-        return render(request, 'participant/profile.html', context)
-    return render(request, 'participant/profile.html')
+
+
+    if request.user.is_staff:
+        return redirect('organisateur:accueil')
+
+    user = get_object_or_404(User, username=username)
+
+    equipe = user.participant.equipe
+
+    participants = equipe.participants.all
+
+    return render(request, 'participant/profile.html', locals())
+

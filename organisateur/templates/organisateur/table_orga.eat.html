@@ -1,0 +1,60 @@
+<style>
+    .eat{
+        background-color: #DCEDC8;
+        border-color:#DCEDC8;
+        color: #DCEDC8
+    }
+
+    .no-eat{
+        background: #FFCDD2;
+        border-color:#FFCDD2;
+        color: #FFCDD2
+    }
+
+    .table-bordered td, .table-bordered th {
+        border: 1px solid #afafaf;
+    }
+    .status{
+        text-align: center;
+    }
+</style>
+<div class="h3">Tableau du suivi des repas</div>
+<table id="table-suivi" class="table table-bordered ">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Nom</th>
+            <th>Vendredi Soir</th>
+            <th>Samedi Matin</th>
+            <th>Samedi Midi</th>
+            <th>Samedi Soir</th>
+            <th>Dimanche Matin</th>
+            <th>Dimanche Midi</th>
+            <th>Date dernier repas</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for orga in organisateurs %}
+            <tr>
+                <th>{{ forloop.counter }}</th>
+                <td>{{ orga.nom }}</td>
+                <td class="status  {% if orga.vendredi_soir == True %}  eat {% else %} no-eat {% endif %}">
+                </td>
+
+                <td class="status  {% if orga.samedi_mati == True %}  eat {% else %} no-eat {% endif %}">
+                </td>
+                <td class="status  {% if orga.samedi_midi == True %}  eat {% else %} no-eat {% endif %}">
+                </td>
+                <td class="status  {% if orga.samedi_soir == True %}  eat {% else %} no-eat {% endif %}">
+                </td>
+                <td class="status  {% if orga.dimanche_matin == True %}  eat {% else %} no-eat {% endif %}">
+                </td>
+                <td class="status  {% if orga.dimanche_midi == True %}  eat {% else %} no-eat {% endif %}">
+                </td>
+                <td>
+                    {{ orga.date }}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

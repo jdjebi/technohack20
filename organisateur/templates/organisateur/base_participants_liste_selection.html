@@ -1,0 +1,44 @@
+{% load static %}
+<style type="text/css">
+	.my-row{
+		font-weight: initial !important;
+	}
+</style>
+<div id="participant-liste">
+	<div class="text-center p-5">
+		<div class="mb-4"><img style="width: 250px" src="{% static 'images/logoofficiel.png' %}"></div>
+		<div class="h4">Liste des participants {{ niveau }}</div>
+		<div class="text-center">
+			{% if niveau_key == "niveau1" %}
+				Date et lieu: Aujourd'hui de 21h à 00h BATIMENT E
+			{% elif niveau_key == "niveau2" %}
+				Date et lieu: Demain de 17h30 à 20h30 BATIMENT E
+			{% endif %}	
+		</div>
+		
+	</div>
+	<table class="table table-bordered ">
+	  <thead>
+	    <tr>
+	      <th scope="col">#</th>
+	      <th scope="col">Nom de l'équipe</th>
+	      <th scope="col">Coéquipier 1</th>
+	      <th scope="col">Coéquipier 2</th>
+	      <th scope="col">Coéquipier 3</th>
+	      <th class="text-center" scope="col">Salle</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{% for equipe in equipes %}
+	    <tr>
+			<th scope="row">{{ forloop.parentloop.counter }}</th>
+			<td class="font-weight-bold">{{ equipe.nom }}</td>
+			{% for participant in equipe.participants.all %}
+			<td class="my-row">{{ participant }}</td>
+			{% endfor %}
+			<td class="font-weight-bold text-center">{{ equipe.salle }}</td>
+	    </tr>
+	    {% endfor %}
+	  </tbody>
+	</table>	
+</div>

@@ -21,11 +21,11 @@ class Equipe(models.Model):
 
 
 class Participant(models.Model):
-    user = models.OneToOneField(
-        User, on_delete=models.CASCADE, related_name='participant')
-    numero = models.CharField(max_length=8)
-    equipe = models.ForeignKey(
-        Equipe, on_delete=models.CASCADE, related_name='participants')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='participant')
+    numero = models.CharField(max_length=8,null=True,blank=True)
+    equipe = models.ForeignKey(Equipe, on_delete=models.CASCADE, related_name='participants')
+
+    is_chief = models.BooleanField(default=False)
 
     def __str__(self):
         self.nom = "{} {}".format(self.user.last_name, self.user.first_name)

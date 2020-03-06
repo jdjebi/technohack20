@@ -1,0 +1,104 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Répartition des équipes sélectionnées</title>
+	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <link rel="icon" type="image/png" href="{% static 'images/icone.png' %}" />
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet" />
+</head>
+<body>
+<style type="text/css">
+	.my-row{
+		font-weight: initial !important;
+	}
+	table th {
+	    font-size: 1.2em;
+	}
+
+	table td {
+	    font-size: 1.2em;
+	}
+</style>
+<div class="mb-5 text-center">
+	<div><img style="width: 250px" src="{% static 'images/logoofficiel.png' %}"></div>
+	<div class="h4">Répartition des équipes</div>
+</div>
+<div id="participant-liste">
+	<div class="text-center p-5">
+		<div class="h4">Niveau 1</div>
+	</div>
+	<table class="table table-bordered ">
+	  <thead>
+	    <tr>
+	      <th scope="col">#</th>
+	      <th scope="col">Nom de l'équipe</th>
+	      <th scope="col">Classe de l'équipe</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{% for equipe in equipes_n1 %}
+		    <tr>
+				<th class="text-center" scope="row">{{ forloop.counter }}</th>
+				<td class="font-weight-bold">{{ equipe.nom }}</td>
+				<td></td>
+  	 		</tr>
+	    {% endfor %}
+	  </tbody>
+	</table>	
+</div>
+
+<div id="participant-liste">
+	<div class="text-center p-5">
+		<div class="h4">Niveau 2</div>
+	</div>
+	<table class="table table-bordered ">
+	  <thead>
+	    <tr>
+	      <th scope="col">#</th>
+	      <th scope="col">Nom de l'équipe</th>
+	      <th scope="col">Classe de l'équipe</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{% for equipe in equipes_n2 %}
+		    <tr>
+				<th class="text-center" scope="row">{{ forloop.counter }}</th>
+				<td class="font-weight-bold">{{ equipe.nom }}</td>
+				<td></td>
+  	 		</tr>
+	    {% endfor %}
+	  </tbody>
+	</table>	
+</div>
+
+<div id="participant-liste">
+	<div class="text-center p-5">
+		<div class="h4">Niveau 3</div>
+	</div>
+	<table class="table table-bordered ">
+	  <thead>
+	    <tr>
+	      <th scope="col">#</th>
+	      <th scope="col">Nom de l'équipe</th>
+	      <th scope="col">Classe de l'équipe</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{% for equipe in equipes_n3 %}
+		    <tr>
+				<th class="text-center" scope="row">{{ forloop.counter }}</th>
+				<td class="font-weight-bold">{{ equipe.nom }}</td>
+				<td></td>
+  	 		</tr>
+	    {% endfor %}
+	  </tbody>
+	</table>	
+</div>
+</body>
+</html>
+

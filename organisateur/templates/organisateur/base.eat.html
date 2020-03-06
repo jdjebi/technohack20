@@ -1,0 +1,99 @@
+{% load static %}
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <link rel="icon" type="image/png" href="{% static 'images/icone.png' %}" />
+        <title>Technovor Hackathon 2020 | Statistiques</title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"/>
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+        <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet" />
+    </head>
+<body>
+
+<style>
+
+.main-indicator{
+    font-size: 200px
+}
+.main-indicator-label{
+    font-size: 25px;
+    font-weight: 800;
+    text-align: right
+}
+
+.main-indicator-big-font{
+    font-size: 250px;
+}
+
+
+.techno-orange{
+    color: #f08000
+}
+</style>
+
+<style>
+@media screen and (max-width: 1470px){
+
+}
+
+@media screen and (max-width: 1280px){
+
+}
+
+@media screen and (max-width: 1050px){
+
+}
+
+@media screen and (max-width: 920px){
+    .main-indicator{
+        font-size: 60px
+    }
+    .main-indicator-label{
+        font-size: 30px;
+        font-weight: 800;
+        text-align: right
+    }
+
+    .main-indicator-big-font{
+        font-size: 80px;
+    }
+}
+
+@media (max-width:576px){
+
+}
+
+.menu-btn{
+    position: absolute;
+}
+</style>
+
+{% block content %} {% endblock %}
+
+<script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+<script type="text/javascript"src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/chart.js' %}"></script>
+<script src="{% static 'js/chart.utils.js' %}"></script>
+<script>
+
+var menu_btn = $('#menu-btn')
+
+$(menu_btn).on('click',function(e){
+
+   if( $("#menu").is(":visible")){
+         $('#stats').removeClass('col-md-10')
+         $('#stats').addClass('col-md-12')
+   }else{
+        $('#stats').removeClass('col-md-12')
+        $('#stats').addClass('col-md-10')
+   }
+
+    $('#menu').toggleClass('d-none')
+})
+
+</script>
+</body>
+</html>

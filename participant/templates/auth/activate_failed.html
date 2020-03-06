@@ -1,19 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Activation échouée</title>
-  </head>
-  <body>
-    <div class="container mx-auto" style="position: absolute; top: 50%;">
-      <h3>
-        Quelque chose d'inattendue s'est passée, svp veuillez contacter
-        l'administrateur du site.
-      </h3>
-      <p>
-        <strong><a href="{% url 'contact' %}">Vers la page de contact</a></strong>
-      </p>
+{% extends 'base.html' %} {% load static %} {% block title %} Erreur du serveur
+{% endblock title %} {% block content %}
+<div style="height: 86.6%;" class="pt-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5">
+        <p class="h3 my-4 text-warning">
+          Le serveur rencontre quelques difficultés !
+        </p>
+        <p class="h6">
+         Quelque chose d'inattendue s'est passée, svp veuillez contacter
+        l'administrateur du site. Veuiller contacter immédiatement administrateur du site.
+        </p>
+        <p>
+          <a href="{% url 'contact' %}">Contacter l'administrateur</a>
+        </p>
+      </div>
+      <div class="col-md">
+        <img
+          src="{% static 'images/500.jpg' %}"
+          alt=""
+          width="600"
+          height="auto"
+        />
+      </div>
     </div>
-  </body>
-</html>
+  </div>
+</div>
+{% endblock content %}

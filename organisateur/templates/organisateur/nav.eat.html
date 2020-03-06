@@ -1,0 +1,20 @@
+<div class="font-weight-bold h4">&nbsp;{{ momment_label |capfirst }}</div>
+<ul class="nav flex-column">
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'api:global_stats' %}">Général</a>
+    </li>
+    {% for date in dates %}
+    <li class="nav-item">
+        <div class="nav-link">
+            <a href="{% url 'api:stats' date.jour date.periode %}">({{ date.data.conso }}) {{ date.label |capfirst  }}</a>
+            |
+            <a href="{% url 'api:stats_liste' date.jour date.periode %}">Liste</a>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+<hr>
+<div>
+    <a href="{% url 'api:orga_eat_history' %}">Suivi des repas l'organisation</a>
+</div>
+

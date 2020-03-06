@@ -1,0 +1,65 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Liste de sélection - {{ niveau }}</title>
+	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <link rel="icon" type="image/png" href="{% static 'images/icone.png' %}" />
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet" />
+</head>
+<body>
+<style type="text/css">
+	.my-row{
+		font-weight: initial !important;
+	}
+	
+
+	table th {
+	    font-size: 1.2em;
+	}
+
+	table td {
+	    font-size: 1.2em;
+	}
+</style>
+<div id="participant-liste">
+	<div class="text-center p-5">
+		<div class="mb-4"><img style="width: 250px" src="{% static 'images/logoofficiel.png' %}"></div>
+		<div class="h4">Liste des participants {{ niveau }}</div>
+	</div>
+	<table class="table table-bordered ">
+	  <thead>
+	    <tr>
+	      <th scope="col">#</th>
+	      <th scope="col">ID participant</th>
+	      <th scope="col">Nom participant</th>
+      	  <th scope="col">Nom de l'équipe</th>
+	      <th scope="col">Niveau</th>
+	      <th class="text-center" scope="col">&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{% for equipe in equipes %}
+	  		{% for participant in equipe.participants %}
+
+			    <tr>
+					<th class="text-center" scope="row">{{ participant.i }}</th>
+					<td>{{ participant.pk }}</td>
+					<td>{{ participant.nom }}</td>
+					<td class="font-weight-bold">{{ equipe.nom }}</td>
+					<td>{{ equipe.niveau }}</td>
+					<td></td>
+	  	 		</tr>
+
+	    	{% endfor %}
+	    {% endfor %}
+	  </tbody>
+	</table>	
+</div>
+</body>
+</html>
+

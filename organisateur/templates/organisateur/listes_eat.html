@@ -1,0 +1,74 @@
+{% extends 'organisateur/base.eat.html' %}
+
+{% block content %}
+
+<div id="menu-btn" class="p-3"><a href="#"><span class="techno-orange"><i class="fa fa-bars"></i></span></a></div>
+<div class="container-fluid">
+    <div class="row">
+        <div id="menu" class="col-sm-12 col-md-2 p-4 pt-5 border-right">
+            {% include 'organisateur/nav.eat.html'  %}
+        </div>
+        <div id="stats" class="col-sm-12 col-md-10">
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="h3">Participants non servi</div>
+                    <table class="table table-bordered ">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Classe</th>
+                            <th scope="col">Niveau</th>
+                            <th scope="col">Equipe</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for participant in participant_not_eat %}
+                            <tr>
+                                <th class="text-center" scope="row">{{ forloop.counter }}</th>
+                                <td>{{ participant.pk }}</td>
+                                <td>{{ participant }}</td>
+                                <td class="font-weight-bold">{{ participant.equipe.salle }}</td>
+                                <td>{{ participant.equipe.niveau }}</td>
+                                <td>{{ participant.equipe }}</td>
+                            </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="h3">Participants servi</div>
+                    <table class="table table-bordered ">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Classe</th>
+                            <th scope="col">Niveau</th>
+                            <th scope="col">Equipe</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for participant in paricipant_eat %}
+                            <tr>
+                                <th class="text-center" scope="row">{{ forloop.counter }}</th>
+                                <td>{{ participant.pk }}</td>
+                                <td>{{ participant }}</td>
+                                <td class="font-weight-bold">{{ participant.equipe.salle }}</td>
+                                <td>{{ participant.equipe.niveau }}</td>
+                                <td>{{ participant.equipe }}</td>
+                            </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+

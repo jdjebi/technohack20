@@ -9,7 +9,7 @@
     />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <link rel="icon" type="image/png" href="{% static 'images/icone.png' %}" />
-    <title>Technovor Hackaton 2020 | {% block title %}{% endblock title %}</title>
+    <title>Technovor Hackathon 2020 | {% block title %}{% endblock title %}</title>
     <!-- Font Awesome -->
     <link
       rel="stylesheet"
@@ -34,7 +34,7 @@
 
     <!--Navbar-->
     <nav class="navbar elegant-color-dark py-3 navbar-expand-lg navbar-dark">
-      <div class="container">
+      <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'accueil' %}"
           ><img
             src="{% static 'images/logoofficiel_blanc.png' %}"
@@ -56,30 +56,88 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!--Links-->
           <ul class="navbar-nav mr-auto smooth-scroll">
+            {% if not user.is_authenticated %}
+
             <li class="nav-item">
               <a class="nav-link" href="{% url 'accueil' %}"
                 >Accueil <span class="sr-only">(current)</span></a
               >
             </li>
-            <li class="nav-item">
+
+            {% endif %}
+
+             <li class="nav-item">
+                <a
+                  class="nav-link font-weight-bolder"
+                  href="{% if user.is_staff %}{% url 'attente' %}{% else %}{% url 'attente' %}{% endif %}"
+                  data-offset="80"
+                  ><i style="font-size: 5px; vertical-align: middle;"class="fa fa-xs fa-circle text-warning"></i> &nbsp;Résultats des préselections</a>
+              </li>
+
             <li class="nav-item">
               <a class="nav-link" href="{% url 'equipes' %}" data-offset="80"
                 >Equipes</a
               >
             </li>
+
+            {% if user.is_staff %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'organisateur:accueil' %}" data-offset="80"
+                  >Gestion des équipes</a
+                >
+              </li>
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Listes
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'organisateur:liste_se' 'niveau1'%}" target="_blank">Niveau 1 participant sélectionnés</a>
+                  <a class="dropdown-item" href="{% url 'organisateur:liste_se' 'niveau2'%}" target="_blank">Niveau 2 participant sélectionnés</a>
+                  <a class="dropdown-item" href="{% url 'organisateur:liste_se' 'niveau3'%}" target="_blank">Niveau 3 participant sélectionnés</a>
+                  <a class="dropdown-item" href="{% url 'organisateur:liste_se' 'all'%}" target="_blank">Participant sélectionnés</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'organisateur:liste_pre' 'niveau1'%}" target="_blank">Niveau 1 de préselection</a>
+                  <a class="dropdown-item" href="{% url 'organisateur:liste_pre' 'niveau2'%}" target="_blank">Niveau 2 de préselection</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'organisateur:liste_re' %}" target="_blank">Liste pour les repartitions</a>
+                </div>
+              </li>
+
+               <li class="nav-item">
+                  <a class="nav-link" href="{% url 'api:global_stats' %}" data-offset="80" target="_blank" 
+                    >HackEat</a
+                  >
+                </li>
+
+              {% if user.is_superuser %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'admin:index' %}" data-offset="80" target="_blank" 
+                    >Administration</a
+                  >
+                </li>
+              {% endif %}
+
+            {% endif %}
+           
+            {% if not user.is_staff %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'attente' %}" data-offset="80"
-                >Résultats</a
-              >
+              <a class="nav-link" href="{% url 'contact' %}#contact" data-offset="80">Contactez nous</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'contact' %}" data-offset="80"
-                >Contactez nous</a
-              >
-            </li>
+            {% endif %}
           </ul>
 
-          <!--Social Icons-->
+
+
+
+
+
+
+
+
+
+
+
           <ul class="navbar-nav nav-flex-icons">
             {% if user.is_authenticated %}
                 {% if user.username == 'organisateur' %}
@@ -104,14 +162,10 @@
                   </div>
                 {% else %}
                   <div class="dropdown">
-                    <a class="dropdown-toggle white-text" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle" style="font-size:37px;"></i> {{user}}</a>
+                    <a class="dropdown-toggle white-text" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i> {{user}}</a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="{% url 'participant:profile' user %}"
-                        >Profile</a
-                      >
-                      <a class="dropdown-item" href="{% url 'organisateur:deconnexion' %}"
-                        >Deconnexion</a
-                      >
+                      <a class="dropdown-item" href="{% url 'participant:profile' user %}">Profile</a>
+                      <a class="dropdown-item" href="{% url 'organisateur:deconnexion' %}">Deconnexion</a>
                     </div>
                   </div>
                 {% endif %}
@@ -121,11 +175,14 @@
                 >Connexion</a
               >
             </li>
+
+            {% if user.username == "@???@" %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'participant:inscription' %}"
                 >Inscription</a
               >
             </li>
+            {% endif %}
 
             {% endif %}
           </ul>

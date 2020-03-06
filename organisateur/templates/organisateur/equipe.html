@@ -1,0 +1,51 @@
+{% extends 'base.html' %} 
+{% load static %}
+
+{% block title %}
+  Profile
+{% endblock title %}
+
+
+{% block content %} 
+
+<h2 class="text-center my-3">{{equipe.nom.upper}}</h2>
+<div class="mb-5">
+    <div class="container-fluid" style="position: relative; top: 80px;">
+        <div class="row">
+            <div class="col-md-4 col-lg-3">
+                <section class="card profile-card mb-5">
+                    <div
+                        class="avatar z-depth-1-half w-25 rounded-circle mx-auto bg-white"
+                        style="margin-top: -60px;"
+                    >
+                        <img
+                        src="{% static 'images/icone.png' %}"
+                        width="150"
+                        height="auto"
+                        alt=""
+                        class="img-fluid rounded-circle"
+                        />
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                           <h4>Equipe {{ equipe.pk }} - {{equipe.niveau}}</h4>
+                        </div>
+                        <hr>
+                        <p class="card-text mt-3">
+                        <h5>Nom d'équipe : <sapn class="text-warning">{{equipe.nom.upper}}</span></h5>
+                        <h5>Chef : <sapn>{{equipe.chef.upper}}</span></h5>
+                        <h5>Etat : {% if user.participant.equipe.selectionner %}<span class="text-success">Sélectionnée</span>{% else %}<span class="text-danger">Eliminée</span>{% endif %} </h5> 
+                        </p>
+                    </div>
+                </section>
+            </div>
+            {% for participant in participants %}
+            <div class="col-sm-12 col-md-4 col-lg-3">
+                {% include 'organisateur/equipe.participant.html' %}
+            </div>  
+            {% endfor %}    
+        </div>
+    </div>
+</div>
+<div class="text-center text-muted m-3">&copy Technovore Hackathon 2020</div>
+{% endblock content %}

@@ -86,11 +86,14 @@ Liste des equipes
           <th>Equipe</th>
           <th>Membres</th>
           <th>Niveau</th>
+          {% if user.is_staff %}
+            <th>Actions</th>
+          {% endif %}
         </tr>
       </thead>
       <tbody class="text-center">
         {% for equipe in equipes %}
-        <tr>
+        <tr id="technohack20@equipe-id-{{ equipe.pk }}">
           <td>{{forloop.counter}}</td>
           <td>{{equipe.nom.capitalize}}</td>
           <td>
@@ -111,6 +114,11 @@ Liste des equipes
               </ul>
           </td>
           <td>{{equipe.niveau}}</td>
+          {% if user.is_staff %}
+          <td>
+            <a href="{% url 'organisateur:equipe_profil' equipe.pk %}" class="btn btn-sm btn-primary">Afficher</a>
+          </td>
+          {% endif %}
         </tr>
         {% endfor %}
       </tbody>

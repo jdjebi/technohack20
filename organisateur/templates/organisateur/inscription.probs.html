@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="container p-4">
+	<h1>Utilisateurs </h1>
+	<ul>
+		{% for user in fake_users %}
+			{% if not user.is_staff %}
+			<li>
+				<ul>
+					<li>ID: {{ user.pk}}</li>
+					<li>Nom utilisateur: {{ user.username }}</li>
+					<li>Nom: {{ user.first_name }}</li>
+					<li>Prenom: {{ user.last_name }}</li>
+				</ul>
+			</li>
+			{% endif %}
+
+		
+		{% endfor %}
+	</ul>
+	<div class="mt-5">
+		<h1>Equipes sans participant </h1>
+		<ul>
+			{% for equipe in fake_equipes %}
+				<li>
+					<ul>
+						<li>ID: {{ equipe.pk}}</li>
+						<li>Nom : {{ equipe.nom }}</li>
+						<li>Niveau : {{ equipe.niveau }}</li>
+						<li>Chef: {{ equipe.chef }}</li>
+					</ul>
+				</li>
+			{% empty  %}
+				<li>Rien à afficher</li>
+			{% endfor %}
+		</ul>		
+	</div>
+	
+</div>
+
+{% endblock %}

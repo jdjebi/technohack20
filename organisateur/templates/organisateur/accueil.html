@@ -1,16 +1,27 @@
 {% extends "base.html" %} 
 
 {% block title %}
-  Oraganisateur
+  Organisateur
 {% endblock title %}
 
 {% block content %}
+<div class="card">
+  <div class="card-header">
+    Statistiques
+  </div>
+  <div class="card-body">
+    <div>Niveau 1: <span class="text-primary font-weight">{{ n1 }}</span></div>
+    <div>Niveau 2: <span class="text-primary font-weight">{{ n2 }}</span></div>
+    <div>Niveau 3: <span class="text-primary font-weight">{{ n3 }}</span></div>
+    <div><strong>Total: <span class="text-primary font-weight">{{ n }}</span></strong></div>
+  </div>
+</div>
 <div class="mt-5 text-center">
   <h2>Liste des participants</h2>
 </div>
-<div class="px-5">
+<div class="px-1">
   <div class="mt-5">
-    <div class="col-md-7 mx-auto">
+    <div class="col-sm-12 col-md-7 mx-auto">
       <!--Filtrer les recherches-->
       <div class="filter mb-5">
         <div class="card py-5 px-5">
@@ -101,6 +112,7 @@
               <th>Membres</th>
               <th>Niveau</th>
               <th>Etat</th>
+              <th>Date création</th>
               <th>Selectionner</th>
             </tr>
           </thead>
@@ -125,11 +137,17 @@
               {% else %}
               <td class="bg-danger">Eliminée</td>
               {% endif %}
+              <td>{{equipe.date_creation}}</td>
               <td>
-              <select class="browser-default custom-select" name="selectionner_{{forloop.counter}}">
-                <option value="{% if equipe.selectionner %}selectionnee{% else %}eliminee{% endif %}">{% if equipe.selectionner %}Sélectionnée{% else %}Eliminée{% endif %}</option>
-                <option value="{% if equipe.selectionner %}eliminee{% else %}selectionnee{% endif %}">{% if equipe.selectionner %}Eliminée{% else %}Sélectionnée{% endif %}</option>
-              </select>
+                <div> 
+                    <select class="browser-default custom-select" name="selectionner_{{forloop.counter}}">
+                    <option value="{% if equipe.selectionner %}selectionnee{% else %}eliminee{% endif %}">{% if equipe.selectionner %}Sélectionnée{% else %}Eliminée{% endif %}</option>
+                    <option value="{% if equipe.selectionner %}eliminee{% else %}selectionnee{% endif %}">{% if equipe.selectionner %}Eliminée{% else %}Sélectionnée{% endif %}</option>
+                  </select>
+                </div>
+                <div class="mt-1">
+                  <a href="{% url 'organisateur:equipe_profil' equipe.pk %}" class="btn btn-block btn-sm btn-primary">Afficher</a>
+                </div>
               </td>
             </tr>
             {% endfor %}

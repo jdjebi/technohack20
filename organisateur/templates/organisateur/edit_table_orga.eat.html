@@ -1,0 +1,109 @@
+<style>
+    .eat{
+        background-color: #DCEDC8;
+        border-color:#DCEDC8;
+        color: #DCEDC8
+    }
+
+    .no-eat{
+        background: #FFCDD2;
+        border-color:#FFCDD2;
+        color: #FFCDD2
+    }
+
+    .table-bordered td, .table-bordered th {
+        border: 1px solid #afafaf;
+    }
+    .status{
+        text-align: center;
+    }
+</style>
+<div class="h3">Tableau du suivi des repas</div>
+<table id="table-suivi" class="table table-bordered ">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Nom</th>
+            <th>Vendredi Soir</th>
+            <th>Samedi Matin</th>
+            <th>Samedi Midi</th>
+            <th>Samedi Soir</th>
+            <th>Dimanche Matin</th>
+            <th>Dimanche Midi</th>
+            <th>Date dernier repas</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <tr>
+                <th>New</th>
+                <td class="status">
+                    <input type="text" name="orga_name" class="form-control form-control-sm" placeholder="Nom" required>
+                </td>
+                <td class="status">
+                     <input type="checkbox" name="vendredi_soir">
+                </td>
+                <td class="status">
+                     <input type="checkbox" name="samedi_matin">
+                </td>
+                <td class="status">
+                    <input type="checkbox" name="samedi_midi">
+                </td>
+                <td class="status">
+                    <input type="checkbox" name="samedi_soir">
+                </td>
+                <td class="status">
+                    <input type="checkbox" name="dimanche_matin">
+                </td>
+                <td class="status">
+                    <input type="checkbox" name="dimanche_midi">
+                </td>
+                <td class="bg-light"></td>
+                <td class="status">
+                    <button class="btn btn-dark btn-sm" name="add">Ajouter</button>
+                </td>
+            </tr>
+        </form>
+        <form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for orga in organisateurs %}
+            <tr>
+                <th>{{ forloop.counter }}</th>
+                <td>{{ orga.nom }}</td>
+                <td class="status  {% if orga.vendredi_soir == True %}  eat {% else %} no-eat {% endif %}">
+                    <input type="checkbox" name="vendredi_soir_{{ forloop.counter0 }}"  {% if orga.vendredi_soir == True %} checked="checked" {% endif %}>
+                </td>
+
+                <td class="status  {% if orga.samedi_mati == True %}  eat {% else %} no-eat {% endif %}">
+                    <input type="checkbox" name="samedi_matin_{{ forloop.counter0 }}"  {% if orga.samedi_matin == True %} checked="checked" {% endif %}>
+                </td>
+                <td class="status  {% if orga.samedi_midi == True %}  eat {% else %} no-eat {% endif %}">
+                    <input type="checkbox" name="samedi_midi_{{ forloop.counter0 }}"  {% if orga.samedi_midi == True %} checked="checked" {% endif %}>
+                </td>
+                <input type="hidden" name="samedi_midi_{{ forloop.counter0 }}"  {% if orga.samedi_midi == True %} checked="checked" {% endif %}>
+                <td class="status  {% if orga.samedi_soir == True %}  eat {% else %} no-eat {% endif %}">
+                    <input type="checkbox" name="samedi_soir_{{ forloop.counter0 }}"  {% if orga.samedi_soir == True %} checked="checked" {% endif %}>
+                </td>
+                <td class="status  {% if orga.dimanche_matin == True %}  eat {% else %} no-eat {% endif %}">
+                    <input type="checkbox" name="dimanche_matin_{{ forloop.counter0 }}"  {% if orga.dimanche_matin == True %} checked="checked" {% endif %}>
+                </td>
+                <td class="status  {% if orga.dimanche_midi == True %}  eat {% else %} no-eat {% endif %}">
+                     <input type="checkbox" name="dimanche_midi_{{ forloop.counter0 }}"  {% if orga.dimanche_midi == True %} checked="checked" {% endif %}>
+                </td>
+                <td>
+                    {{ orga.date }}
+                    <input type="hidden" name="orga_{{ forloop.counter0 }}" value="{{ orga.pk }}">
+                </td>
+                <td class="status">
+                    <a href="#"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="p-1">
+    <button class="btn btn-primay" type="submit" name="register">ENREGISTRER</button>
+</div>
+</form>

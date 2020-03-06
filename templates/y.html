@@ -1,0 +1,21 @@
+<div class="container">
+	<div class="alert alert-warning text-center" role="alert">
+		<strong>Télécharger le fichier des ressources avant de vous présenter à la composition.</strong>
+		{% if niveau_key == "niveau1" %}
+			<br><u><a class="alert-link" href="{% static 'compos/technohack-niveau1.rar' %}">Cliquer pour télécharger les ressources</a></u>	
+		{% elif niveau_key == "niveau2" %}
+			<strong>Cependant les ressources du niveau 2 ne sont pas encore disponibles. Soyez attentif !</strong>
+		{% endif %}
+	</div>
+</div>
+
+
+<li class="nav-item dropdown">
+	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	  Liste de préselection
+	</a>
+	<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	  <a class="dropdown-item" href="{% url 'gb_liste_pre' 'niveau1' %}">Niveau 1</a>
+	  <a class="dropdown-item" href="{% url 'gb_liste_pre' 'niveau2' %}">Niveau 2</a>
+	</div>
+</li>

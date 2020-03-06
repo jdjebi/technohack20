@@ -1,0 +1,21 @@
+{
+  "name": "TechnoHack",
+  "description": "Application de gestion de l'hackathon de l'ESATIC",
+  "image": "heroku/python",
+  "keywords": ["python", "django" ],
+  "addons": [ "heroku-postgresql" ],
+  "env": {
+    "SECRET_KEY": {
+      "description": "9am%il06!no^rae26s89ra1cvp)s)yg6bi5c3)w5y68=sk@28_",
+      "generator": "secret"
+    }
+  },
+  "environments": {
+    "test": {
+      "scripts": {
+        "test-setup": "python3 manage.py collectstatic --noinput",
+        "test": "python manage.py test"
+      }
+    }
+  }
+}
