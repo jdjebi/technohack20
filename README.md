@@ -44,9 +44,6 @@ Cette fonctionnalité permet d'afficher les résultats de la compétition(Prés�
 
 **Cependant les résultats finaux non pas été disponible car le marquage d'une équipe comme gagnante n'a pas été implémenté.**
 
-Suite est en cours de rédaction...
-
-
 
 
 
